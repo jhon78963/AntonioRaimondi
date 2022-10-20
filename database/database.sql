@@ -1,6 +1,4 @@
-drop database if exists db_raimondi;
-create database db_raimondi;
-use db_raimondi;
+use heroku_75d0d43a6762bc8;
 
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles
