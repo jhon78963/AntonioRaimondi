@@ -148,7 +148,6 @@
                     toastr.success(mensaje, 'Actualización Existosa', {
                         timeOut: 3000
                     });
-                    document.getElementById("photo_perfil").src = photo;
                 },
                 complete: function() {
                     $('#btn_guardar').text('Guardar');
