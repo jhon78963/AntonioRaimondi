@@ -194,8 +194,6 @@
                                                 <div class="flex-grow-1">
                                                     <span
                                                         class="fw-semibold d-block">{{ auth()->user()->user_name }}</span>
-                                                    {{-- <small
-                                                        class="text-muted">{{ auth()->user()->roles->name }}</small> --}}
                                                 </div>
                                             </div>
                                         </a>
@@ -204,7 +202,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('profiles.index') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Mi Perfíl</span>
                                         </a>
@@ -277,6 +275,7 @@
 
     <!-- Page JS -->
     <script src="{{ secure_asset('plantilla/assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/js/pages-account-settings-account.js') }}"></script>
 
     <!-- Toastr JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

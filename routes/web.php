@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/guardar', [App\Http\Controllers\UserController::class, 'guardar'])->name('users.guardar');
     Route::resource('users', App\Http\Controllers\UserController::class);
 
+    // Perfil
+    Route::resource('profiles', App\Http\Controllers\PerfilController::class);
+
     // Permisos
     Route::post('permission/actualizar', [App\Http\Controllers\PermissionController::class, 'actualizar'])->name('permission.actualizar');
     Route::get('permission/eliminar/{id}', [App\Http\Controllers\PermissionController::class, 'eliminar'])->name('permission.eliminar');
