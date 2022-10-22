@@ -620,7 +620,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('[name="all_permission"]').on('click', function() {
-
                 if ($(this).is(':checked')) {
                     $.each($('.permission'), function() {
                         $(this).prop('checked', true);
@@ -635,27 +634,9 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('[name="all_permission"]').on('click', function() {
-
-                if ($(this).is(':checked')) {
-                    $.each($('.permission'), function() {
-                        $(this).prop('checked', true);
-                    });
-                } else {
-                    $.each($('.permission'), function() {
-                        $(this).prop('checked', false);
-                    });
-                }
-
-            });
-        });
-    </script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('[name="all_permission_edit"]').on('click', function() {
-
                 if ($(this).is(':checked')) {
                     $.each($('.permission_edit'), function() {
                         $(this).prop('checked', true);

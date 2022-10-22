@@ -47,6 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('permission/eliminar/{id}', [App\Http\Controllers\PermissionController::class, 'eliminar'])->name('permission.eliminar');
     Route::resource('permissions', App\Http\Controllers\PermissionController::class);
     Route::resource('pruebas', App\Http\Controllers\PruebaController::class);
+
+    // Alumno
+    Route::post('alumno/actualizar', [App\Http\Controllers\AlumnoController::class, 'actualizar'])->name('alumnos.actualizar');
+    Route::get('alumno/eliminar/{id}', [App\Http\Controllers\AlumnoController::class, 'eliminar'])->name('alumnos.eliminar');
+    Route::resource('alumnos', App\Http\Controllers\AlumnoController::class);
 });
 
 

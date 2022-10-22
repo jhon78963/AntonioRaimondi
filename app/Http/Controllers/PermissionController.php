@@ -65,12 +65,13 @@ class PermissionController extends Controller
 
         $roles = $request->role;
 
-        for($i=0;$i<count($roles);$i++){
-
-            DB::table('role_has_permissions')->insert([
-                'permission_id' => $last_perm_id,
-                'role_id' => $roles[$i]
-            ]);
+        if($roles != null){
+            for($i=0;$i<count($roles);$i++){
+                DB::table('role_has_permissions')->insert([
+                    'permission_id' => $last_perm_id,
+                    'role_id' => $roles[$i]
+                ]);
+            }
         }
 
         return back();

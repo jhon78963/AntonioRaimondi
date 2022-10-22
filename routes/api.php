@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Departamento;
+use App\Models\Provincia;
+use App\Models\Distrito;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +33,16 @@ Route::get('/permission/{id}/role', function($perm_id){
         ->where('permission_id', $perm_id)
         ->select('role_id', 'permission_id')
         ->get();
+});
+
+Route::get('pais/{id}/departamentos', function($id) {
+    return Departamento::where('pais_id',$id)->get();
+});
+
+Route::get('departamento/{id}/provincias', function($id) {
+    return Provincia::where('depa_id',$id)->get();
+});
+
+Route::get('provincia/{id}/distritos', function($id) {
+    return Distrito::where('prov_id',$id)->get();
 });

@@ -89,9 +89,9 @@ class RoleController extends Controller
 
     public function actualizar(Request $request)
     {
-        // $role = Role::find($request->role_id);
-        // $role->update($request->all());
-        // $role->permissions()->sync($request->permission);
+        $role = Role::find($request->role_id);
+        $role->update($request->all());
+        $role->permissions()->sync($request->permission);
 
         DB::table('roles')->where('id', $request->role_id)->update([
             'name' => $request->role_name
