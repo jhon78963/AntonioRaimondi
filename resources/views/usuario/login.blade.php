@@ -94,8 +94,8 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="text-center">¿No estas registrado? <a data-toggle="tab"
-                                    href="#signup">Registrate</a>
+                            <p class="text-center">Usuario de Prueba <br> Username:
+                                uno   Password: 123456789
                             </p>
                         </div>
                     </div>
