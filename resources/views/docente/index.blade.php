@@ -1,13 +1,13 @@
 @extends('layout.template')
 
 @section('title')
-    <title>AR | Alumno</title>
+    <title>AR | Docente</title>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h2 class="card-title">Mantenimiento de<b> Alumnos</b></h2>
+            <h2 class="card-title">Mantenimiento de<b> Docentes</b></h2>
         </div>
         <div class="card-body">
             <div class="container-fluid">
@@ -18,21 +18,21 @@
                             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home"
                                 aria-selected="true">
-                                Lista de Alumnos
+                                Lista de Docentes
                             </button>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile"
                                 aria-selected="false">
-                                Registrar Alumno
+                                Registrar Docente
                             </button>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
-                            <table id="tabla-alumno" class="table table-bordered table-hover">
+                            <table id="tabla-docente" class="table table-bordered table-hover">
                                 <thead class="table-dark">
                                     <tr>
                                         <th data-priority="1" class="text-center">DNI</th>
@@ -45,27 +45,27 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
-                            <form id="registro-alumno">
+                            <form id="registro-docente">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
 
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label" for="update_role_name">Fecha de Nacimiento</label>
-                                        <input type="date" class="form-control" id="alum_fechaNacimiento"
-                                            name="alum_fechaNacimiento" placeholder="apellido materno">
+                                        <label class="form-label" for="update_role_name">Fecha de Ingreso</label>
+                                        <input type="date" class="form-control" id="doce_fechaIngreso"
+                                            name="doce_fechaIngreso" placeholder="apellido materno">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">DNI</label>
-                                        <input type="text" class="form-control" id="alum_dni" name="alum_dni"
+                                        <input type="text" class="form-control" id="doce_dni" name="doce_dni"
                                             placeholder="dni">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Sexo</label>
-                                        <select id="alum_sexo" name="alum_sexo" class="form-control">
+                                        <select id="doce_sexo" name="doce_sexo" class="form-control">
                                             <option value="">Seleccione sexo</option>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
@@ -75,38 +75,38 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Apellido Paterno</label>
-                                        <input type="text" class="form-control" id="alum_apellidoPaterno"
-                                            name="alum_apellidoPaterno" placeholder="apellido paterno">
+                                        <input type="text" class="form-control" id="doce_apellidoPaterno"
+                                            name="doce_apellidoPaterno" placeholder="apellido paterno">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Apellido Materno</label>
-                                        <input type="text" class="form-control" id="alum_apellidoMaterno"
-                                            name="alum_apellidoMaterno" placeholder="apellido materno">
+                                        <input type="text" class="form-control" id="doce_apellidoMaterno"
+                                            name="doce_apellidoMaterno" placeholder="apellido materno">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Primer Nombre</label>
-                                        <input type="text" class="form-control" id="alum_primerNombre"
-                                            name="alum_primerNombre" placeholder="apellido paterno">
+                                        <input type="text" class="form-control" id="doce_primerNombre"
+                                            name="doce_primerNombre" placeholder="apellido paterno">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Otros Nombres</label>
-                                        <input type="text" class="form-control" id="alum_otrosNombres"
-                                            name="alum_otrosNombres" placeholder="apellido materno">
+                                        <input type="text" class="form-control" id="doce_otrosNombres"
+                                            name="doce_otrosNombres" placeholder="apellido materno">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Telefono</label>
-                                        <input type="text" class="form-control" id="alum_telefono"
-                                            name="alum_telefono" placeholder="telefono">
+                                        <input type="text" class="form-control" id="doce_telefono"
+                                            name="doce_telefono" placeholder="telefono">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Celular</label>
-                                        <input type="text" class="form-control" id="alum_celular" name="alum_celular"
+                                        <input type="text" class="form-control" id="doce_celular" name="doce_celular"
                                             placeholder="celular">
                                     </div>
                                 </div>
@@ -139,8 +139,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <input type="text" class="form-control" id="alum_direccion"
-                                            name="alum_direccion" placeholder="dirección">
+                                        <input type="text" class="form-control" id="doce_direccion"
+                                            name="doce_direccion" placeholder="dirección">
                                     </div>
                                 </div>
 
@@ -153,38 +153,38 @@
                 </div>
 
                 <!-- Modal Actualizar -->
-                <div class="modal fade" id="alumno_edit_modal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="docente_edit_modal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
-                        <form id="alumno_edit_form">
+                        <form id="docente_edit_form">
                             @csrf
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">Actualizar Alumno</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel1">Actualizar Docente</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="update_alum_id" name="alum_id">
+                                    <input type="hidden" id="update_doce_id" name="doce_id">
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_fechaNacimiento">Fecha de
-                                                Nacimiento</label>
-                                            <input type="date" class="form-control" id="update_alum_fechaNacimiento"
-                                                name="alum_fechaNacimiento" placeholder="apellido materno">
+                                            <label class="form-label" for="update_doce_fechaIngreso">Fecha de
+                                                Ingreso</label>
+                                            <input type="date" class="form-control" id="update_doce_fechaIngreso"
+                                                name="doce_fechaIngreso" placeholder="apellido materno">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_dni">DNI</label>
-                                            <input type="text" class="form-control" id="update_alum_dni"
-                                                name="alum_dni" placeholder="dni" readonly>
+                                            <label class="form-label" for="update_doce_dni">DNI</label>
+                                            <input type="text" class="form-control" id="update_doce_dni"
+                                                name="doce_dni" placeholder="dni" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_sexo">Sexo</label>
-                                            <select id="update_alum_sexo" name="alum_sexo" class="form-control">
+                                            <label class="form-label" for="update_role_name">Sexo</label>
+                                            <select id="update_doce_sexo" name="doce_sexo" class="form-control">
                                                 <option value="">Seleccione sexo</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Femenino">Femenino</option>
@@ -193,47 +193,47 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_apellidoPaterno">Apellido
+                                            <label class="form-label" for="update_doce_apellidoPaterno">Apellido
                                                 Paterno</label>
-                                            <input type="text" class="form-control" id="update_alum_apellidoPaterno"
-                                                name="alum_apellidoPaterno" placeholder="apellido paterno">
+                                            <input type="text" class="form-control" id="update_doce_apellidoPaterno"
+                                                name="doce_apellidoPaterno" placeholder="apellido paterno">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_apellidoMaterno">Apellido
+                                            <label class="form-label" for="update_doce_apellidoMaterno">Apellido
                                                 Materno</label>
-                                            <input type="text" class="form-control" id="update_alum_apellidoMaterno"
-                                                name="alum_apellidoMaterno" placeholder="apellido materno">
+                                            <input type="text" class="form-control" id="update_doce_apellidoMaterno"
+                                                name="doce_apellidoMaterno" placeholder="apellido materno">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_primerNombre">Primer Nombre</label>
-                                            <input type="text" class="form-control" id="update_alum_primerNombre"
-                                                name="alum_primerNombre" placeholder="apellido paterno">
+                                            <label class="form-label" for="update_doce_primerNombre">Primer Nombre</label>
+                                            <input type="text" class="form-control" id="update_doce_primerNombre"
+                                                name="doce_primerNombre" placeholder="apellido paterno">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_otrosNombres">Otros Nombres</label>
-                                            <input type="text" class="form-control" id="update_alum_otrosNombres"
-                                                name="alum_otrosNombres" placeholder="apellido materno">
+                                            <label class="form-label" for="update_doce_otrosNombres">Otros Nombres</label>
+                                            <input type="text" class="form-control" id="update_doce_otrosNombres"
+                                                name="doce_otrosNombres" placeholder="apellido materno">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_telefono">Telefono</label>
-                                            <input type="text" class="form-control" id="update_alum_telefono"
-                                                name="alum_telefono" placeholder="telefono">
+                                            <label class="form-label" for="update_role_name">Telefono</label>
+                                            <input type="text" class="form-control" id="update_doce_telefono"
+                                                name="doce_telefono" placeholder="telefono">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_celular">Celular</label>
-                                            <input type="text" class="form-control" id="update_alum_celular"
-                                                name="alum_celular" placeholder="celular">
+                                            <label class="form-label" for="update_doce_celular">Celular</label>
+                                            <input type="text" class="form-control" id="update_doce_celular"
+                                                name="doce_celular" placeholder="celular">
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <label class="form-label" for="update_alum_direccion">Dirección</label>
+                                        <label class="form-label" for="update_doce_direccion">Dirección</label>
                                         <div class="mb-3 col-md-3">
                                             <select name="pais_id" id="update_pais_id" class="form-control">
                                                 <option value="">Seleccione País</option>
@@ -260,8 +260,8 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-12">
-                                            <input type="text" class="form-control" id="update_alum_direccion"
-                                                name="alum_direccion" placeholder="dirección">
+                                            <input type="text" class="form-control" id="update_doce_direccion"
+                                                name="doce_direccion" placeholder="dirección">
                                         </div>
                                     </div>
 
@@ -312,16 +312,16 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <style>
-        #tabla-alumno thead th {
+        #tabla-docente thead th {
             text-align: center;
             color: white;
         }
 
-        #tabla-alumno tbody td:eq(0) {
+        #tabla-docente tbody td:eq(0) {
             text-align: left;
         }
 
-        #tabla-alumno tbody td {
+        #tabla-docente tbody td {
             text-align: center;
             color: dark;
         }
@@ -338,12 +338,12 @@
     </style>
 @endsection
 @section('js')
-    <script src="{{ asset('js/alum_direccion.js') }}"></script>
+    <script src="{{ asset('js/doce_direccion.js') }}"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#tabla-alumno').DataTable({
+            $('#tabla-docente').DataTable({
                 serverSide: true,
                 responsive: true,
                 "language": {
@@ -590,19 +590,19 @@
 
                 },
                 ajax: {
-                    url: "{{ route('alumnos.index') }}",
+                    url: "{{ route('docentes.index') }}",
                 },
                 columns: [{
-                        data: 'alum_dni'
+                        data: 'doce_dni'
                     },
                     {
-                        data: 'alum_fullName'
+                        data: 'doce_fullName'
                     },
                     {
-                        data: 'alum_fullDireccion'
+                        data: 'doce_fullDireccion'
                     },
                     {
-                        data: 'alum_celular'
+                        data: 'doce_celular'
                     },
                     {
                         data: 'action',
@@ -616,14 +616,14 @@
 
     {{-- CREAR --}}
     <script>
-        $('#registro-alumno').submit(function(e) {
+        $('#registro-docente').submit(function(e) {
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('alumnos.store') }}",
+                url: "{{ route('docentes.store') }}",
                 type: "POST",
                 dataType: 'json',
-                data: new FormData($("#registro-alumno")[0]),
+                data: new FormData($("#registro-docente")[0]),
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
@@ -634,11 +634,11 @@
                 },
                 success: function(response) {
                     if (response) {
-                        $('#registro-alumno')[0].reset();
+                        $('#registro-docente')[0].reset();
                         toastr.success('El alumno se registró correctamente.', 'Nuevo Registro', {
                             timeOut: 3000
                         });
-                        $('#tabla-alumno').DataTable().ajax.reload();
+                        $('#tabla-docente').DataTable().ajax.reload();
                     }
                 },
                 complete: function() {
@@ -704,22 +704,22 @@
             });
         }
 
-        function editAlumno(alum_id) {
-            $.get('alumnos/' + alum_id + '/edit', function(alumno) {
-                $('#update_alum_id').val(alumno[0].alum_id);
-                $('#update_alum_dni').val(alumno[0].alum_dni);
-                $('#update_alum_apellidoPaterno').val(alumno[0].alum_apellidoPaterno);
-                $('#update_alum_apellidoMaterno').val(alumno[0].alum_apellidoMaterno);
-                $('#update_alum_primerNombre').val(alumno[0].alum_primerNombre);
-                $('#update_alum_otrosNombres').val(alumno[0].alum_otrosNombres);
-                $('#update_alum_sexo').val(alumno[0].alum_sexo);
-                $('#update_alum_fechaNacimiento').val(alumno[0].alum_fechaNacimiento);
-                $('#update_alum_direccion').val(alumno[0].alum_direccion);
-                $('#update_alum_telefono').val(alumno[0].alum_telefono);
-                $('#update_alum_celular').val(alumno[0].alum_celular);
-                $('#update_pais_id').val(alumno[0].pais_id);
+        function editDocente(doce_id) {
+            $.get('docentes/' + doce_id + '/edit', function(docente) {
+                $('#update_doce_id').val(docente[0].doce_id);
+                $('#update_doce_dni').val(docente[0].doce_dni);
+                $('#update_doce_sexo').val(docente[0].doce_sexo);
+                $('#update_doce_apellidoPaterno').val(docente[0].doce_apellidoPaterno);
+                $('#update_doce_apellidoMaterno').val(docente[0].doce_apellidoMaterno);
+                $('#update_doce_primerNombre').val(docente[0].doce_primerNombre);
+                $('#update_doce_otrosNombres').val(docente[0].doce_otrosNombres);
+                $('#update_doce_fechaIngreso').val(docente[0].doce_fechaIngreso);
+                $('#update_doce_direccion').val(docente[0].doce_direccion);
+                $('#update_doce_celular').val(docente[0].doce_celular);
+                $('#update_doce_telefono').val(docente[0].doce_telefono);
+                $('#update_pais_id').val(docente[0].pais_id);
 
-                $.get('/api/pais/' + alumno[0].pais_id + '/departamentos', function(data) {
+                $.get('/api/pais/' + docente[0].pais_id + '/departamentos', function(data) {
                     var html_select = '<option value="">Seleccione Departamento</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].depa_id + '">' + data[i].depa_nombre +
@@ -727,13 +727,13 @@
                     $('#update_depa_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].depa_id == alumno[0].depa_id) {
+                        if (data[i].depa_id == docente[0].depa_id) {
                             document.getElementById('update_depa_id').value = data[i].depa_id;
                         }
                     }
                 });
 
-                $.get('/api/departamento/' + alumno[0].depa_id + '/provincias', function(data) {
+                $.get('/api/departamento/' + docente[0].depa_id + '/provincias', function(data) {
                     var html_select = '<option value="">Seleccione Provincia</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].prov_id + '">' + data[i].prov_nombre +
@@ -741,13 +741,13 @@
                     $('#update_prov_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].prov_id == alumno[0].prov_id) {
+                        if (data[i].prov_id == docente[0].prov_id) {
                             document.getElementById('update_prov_id').value = data[i].prov_id;
                         }
                     }
                 });
 
-                $.get('/api/provincia/' + alumno[0].prov_id + '/distritos', function(data) {
+                $.get('/api/provincia/' + docente[0].prov_id + '/distritos', function(data) {
                     var html_select = '<option value="">Seleccione Distrito</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].dist_id + '">' + data[i].dist_nombre +
@@ -755,7 +755,7 @@
                     $('#update_dist_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].dist_id == alumno[0].dist_id) {
+                        if (data[i].dist_id == docente[0].dist_id) {
                             document.getElementById('update_dist_id').value = data[i].dist_id;
                         }
                     }
@@ -768,20 +768,20 @@
                 });
 
                 $("input[name=_token]").val();
-                $('#alumno_edit_modal').modal('toggle');
+                $('#docente_edit_modal').modal('toggle');
             })
         }
     </script>
 
     {{-- ACTUALIZAR --}}
     <script>
-        $('#alumno_edit_form').submit(function(e) {
+        $('#docente_edit_form').submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "{{ route('alumnos.actualizar') }}",
+                url: "{{ route('docentes.actualizar') }}",
                 type: "POST",
                 dataType: 'json',
-                data: new FormData($("#alumno_edit_form")[0]),
+                data: new FormData($("#docente_edit_form")[0]),
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
@@ -792,12 +792,12 @@
                 },
                 success: function(response) {
                     if (response) {
-                        $('#alumno_edit_modal').modal('hide');
+                        $('#docente_edit_modal').modal('hide');
                         toastr.info('El registro fue actualizado correctamente.',
                             'Actualizar Registro', {
                                 timeOut: 3000
                             });
-                        $('#tabla-alumno').DataTable().ajax.reload();
+                        $('#tabla-docente').DataTable().ajax.reload();
                     }
                 },
                 complete: function() {
@@ -812,15 +812,15 @@
 
     {{-- ELIMINAR --}}
     <script>
-        var alum_id;
+        var doce_id;
         $(document).on('click', '.delete', function() {
-            alum_id = $(this).attr('id');
+            doce_id = $(this).attr('id');
             $('#confirmModal').modal('show');
         });
 
         $('#btnEliminar').click(function() {
             $.ajax({
-                url: "alumno/eliminar/" + alum_id,
+                url: "docente/eliminar/" + doce_id,
                 beforeSend: function() {
                     $('#btnEliminar').attr("disabled", true);
                     $('#btnEliminar').html(
@@ -839,7 +839,7 @@
                         'Eliminar Registro', {
                             timeOut: 3000
                         });
-                    $('#tabla-alumno').DataTable().ajax.reload();
+                    $('#tabla-docente').DataTable().ajax.reload();
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

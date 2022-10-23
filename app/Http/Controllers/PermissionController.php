@@ -19,11 +19,11 @@ use DataTables;
 class PermissionController extends Controller
 {
     public function __construct(){
-        $this->middleware("can:permission.index", ['only'=>['index']]);
-        $this->middleware("can:permission.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:permission.edit", ['only'=>['edit', 'actualizar']]);
-        $this->middleware("can:permission.show", ['only'=>['show']]);
-        $this->middleware("can:permission.delete", ['only'=>['eliminar']]);
+        $this->middleware("can:permissions.index", ['only'=>['index']]);
+        $this->middleware("can:permissions.create", ['only'=>['create', 'store']]);
+        $this->middleware("can:permissions.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:permissions.show", ['only'=>['show']]);
+        $this->middleware("can:permissions.delete", ['only'=>['eliminar']]);
     }
 
     public function index(Request $request)

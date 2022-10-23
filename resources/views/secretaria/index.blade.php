@@ -1,13 +1,13 @@
 @extends('layout.template')
 
 @section('title')
-    <title>AR | Alumno</title>
+    <title>AR | Secretaria</title>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h2 class="card-title">Mantenimiento de<b> Alumnos</b></h2>
+            <h2 class="card-title">Mantenimiento de<b> Secretarias</b></h2>
         </div>
         <div class="card-body">
             <div class="container-fluid">
@@ -18,21 +18,21 @@
                             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home"
                                 aria-selected="true">
-                                Lista de Alumnos
+                                Lista de Secretarias
                             </button>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                                 data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile"
                                 aria-selected="false">
-                                Registrar Alumno
+                                Registrar Secretaria
                             </button>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
-                            <table id="tabla-alumno" class="table table-bordered table-hover">
+                            <table id="tabla-secretaria" class="table table-bordered table-hover">
                                 <thead class="table-dark">
                                     <tr>
                                         <th data-priority="1" class="text-center">DNI</th>
@@ -45,27 +45,27 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
-                            <form id="registro-alumno">
+                            <form id="registro-secretaria">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
 
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label" for="update_role_name">Fecha de Nacimiento</label>
-                                        <input type="date" class="form-control" id="alum_fechaNacimiento"
-                                            name="alum_fechaNacimiento" placeholder="apellido materno">
+                                        <label class="form-label" for="update_role_name">Fecha de Ingreso</label>
+                                        <input type="date" class="form-control" id="secre_fechaIngreso"
+                                            name="secre_fechaIngreso" placeholder="apellido materno">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">DNI</label>
-                                        <input type="text" class="form-control" id="alum_dni" name="alum_dni"
+                                        <input type="text" class="form-control" id="secre_dni" name="secre_dni"
                                             placeholder="dni">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Sexo</label>
-                                        <select id="alum_sexo" name="alum_sexo" class="form-control">
+                                        <select id="secre_sexo" name="secre_sexo" class="form-control">
                                             <option value="">Seleccione sexo</option>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
@@ -75,39 +75,39 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Apellido Paterno</label>
-                                        <input type="text" class="form-control" id="alum_apellidoPaterno"
-                                            name="alum_apellidoPaterno" placeholder="apellido paterno">
+                                        <input type="text" class="form-control" id="secre_apellidoPaterno"
+                                            name="secre_apellidoPaterno" placeholder="apellido paterno">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Apellido Materno</label>
-                                        <input type="text" class="form-control" id="alum_apellidoMaterno"
-                                            name="alum_apellidoMaterno" placeholder="apellido materno">
+                                        <input type="text" class="form-control" id="secre_apellidoMaterno"
+                                            name="secre_apellidoMaterno" placeholder="apellido materno">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Primer Nombre</label>
-                                        <input type="text" class="form-control" id="alum_primerNombre"
-                                            name="alum_primerNombre" placeholder="apellido paterno">
+                                        <input type="text" class="form-control" id="secre_primerNombre"
+                                            name="secre_primerNombre" placeholder="apellido paterno">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Otros Nombres</label>
-                                        <input type="text" class="form-control" id="alum_otrosNombres"
-                                            name="alum_otrosNombres" placeholder="apellido materno">
+                                        <input type="text" class="form-control" id="secre_otrosNombres"
+                                            name="secre_otrosNombres" placeholder="apellido materno">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Telefono</label>
-                                        <input type="text" class="form-control" id="alum_telefono"
-                                            name="alum_telefono" placeholder="telefono">
+                                        <input type="text" class="form-control" id="secre_telefono"
+                                            name="secre_telefono" placeholder="telefono">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Celular</label>
-                                        <input type="text" class="form-control" id="alum_celular" name="alum_celular"
-                                            placeholder="celular">
+                                        <input type="text" class="form-control" id="secre_celular"
+                                            name="secre_celular" placeholder="celular">
                                     </div>
                                 </div>
 
@@ -139,8 +139,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <input type="text" class="form-control" id="alum_direccion"
-                                            name="alum_direccion" placeholder="dirección">
+                                        <input type="text" class="form-control" id="secre_direccion"
+                                            name="secre_direccion" placeholder="dirección">
                                     </div>
                                 </div>
 
@@ -153,38 +153,38 @@
                 </div>
 
                 <!-- Modal Actualizar -->
-                <div class="modal fade" id="alumno_edit_modal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="secretaria_edit_modal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
-                        <form id="alumno_edit_form">
+                        <form id="secretaria_edit_form">
                             @csrf
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">Actualizar Alumno</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel1">Actualizar Secretaria</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="update_alum_id" name="alum_id">
+                                    <input type="hidden" id="update_secre_id" name="secre_id">
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_fechaNacimiento">Fecha de
-                                                Nacimiento</label>
-                                            <input type="date" class="form-control" id="update_alum_fechaNacimiento"
-                                                name="alum_fechaNacimiento" placeholder="apellido materno">
+                                            <label class="form-label" for="update_secre_fechaIngreso">Fecha de
+                                                Ingreso</label>
+                                            <input type="date" class="form-control" id="update_secre_fechaIngreso"
+                                                name="secre_fechaIngreso" placeholder="apellido materno">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_dni">DNI</label>
-                                            <input type="text" class="form-control" id="update_alum_dni"
-                                                name="alum_dni" placeholder="dni" readonly>
+                                            <label class="form-label" for="update_secre_dni">DNI</label>
+                                            <input type="text" class="form-control" id="update_secre_dni"
+                                                name="secre_dni" placeholder="dni" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_sexo">Sexo</label>
-                                            <select id="update_alum_sexo" name="alum_sexo" class="form-control">
+                                            <label class="form-label" for="update_role_name">Sexo</label>
+                                            <select id="update_secre_sexo" name="secre_sexo" class="form-control">
                                                 <option value="">Seleccione sexo</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Femenino">Femenino</option>
@@ -193,47 +193,49 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_apellidoPaterno">Apellido
+                                            <label class="form-label" for="update_secre_apellidoPaterno">Apellido
                                                 Paterno</label>
-                                            <input type="text" class="form-control" id="update_alum_apellidoPaterno"
-                                                name="alum_apellidoPaterno" placeholder="apellido paterno">
+                                            <input type="text" class="form-control" id="update_secre_apellidoPaterno"
+                                                name="secre_apellidoPaterno" placeholder="apellido paterno">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_apellidoMaterno">Apellido
+                                            <label class="form-label" for="update_secre_apellidoMaterno">Apellido
                                                 Materno</label>
-                                            <input type="text" class="form-control" id="update_alum_apellidoMaterno"
-                                                name="alum_apellidoMaterno" placeholder="apellido materno">
+                                            <input type="text" class="form-control" id="update_secre_apellidoMaterno"
+                                                name="secre_apellidoMaterno" placeholder="apellido materno">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_primerNombre">Primer Nombre</label>
-                                            <input type="text" class="form-control" id="update_alum_primerNombre"
-                                                name="alum_primerNombre" placeholder="apellido paterno">
+                                            <label class="form-label" for="update_secre_primerNombre">Primer
+                                                Nombre</label>
+                                            <input type="text" class="form-control" id="update_secre_primerNombre"
+                                                name="secre_primerNombre" placeholder="apellido paterno">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_otrosNombres">Otros Nombres</label>
-                                            <input type="text" class="form-control" id="update_alum_otrosNombres"
-                                                name="alum_otrosNombres" placeholder="apellido materno">
+                                            <label class="form-label" for="update_secre_otrosNombres">Otros
+                                                Nombres</label>
+                                            <input type="text" class="form-control" id="update_secre_otrosNombres"
+                                                name="secre_otrosNombres" placeholder="apellido materno">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_telefono">Telefono</label>
-                                            <input type="text" class="form-control" id="update_alum_telefono"
-                                                name="alum_telefono" placeholder="telefono">
+                                            <label class="form-label" for="update_role_name">Telefono</label>
+                                            <input type="text" class="form-control" id="update_secre_telefono"
+                                                name="secre_telefono" placeholder="telefono">
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="update_alum_celular">Celular</label>
-                                            <input type="text" class="form-control" id="update_alum_celular"
-                                                name="alum_celular" placeholder="celular">
+                                            <label class="form-label" for="update_secre_celular">Celular</label>
+                                            <input type="text" class="form-control" id="update_secre_celular"
+                                                name="secre_celular" placeholder="celular">
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <label class="form-label" for="update_alum_direccion">Dirección</label>
+                                        <label class="form-label" for="update_secre_direccion">Dirección</label>
                                         <div class="mb-3 col-md-3">
                                             <select name="pais_id" id="update_pais_id" class="form-control">
                                                 <option value="">Seleccione País</option>
@@ -260,8 +262,8 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-12">
-                                            <input type="text" class="form-control" id="update_alum_direccion"
-                                                name="alum_direccion" placeholder="dirección">
+                                            <input type="text" class="form-control" id="update_secre_direccion"
+                                                name="secre_direccion" placeholder="dirección">
                                         </div>
                                     </div>
 
@@ -312,16 +314,16 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <style>
-        #tabla-alumno thead th {
+        #tabla-secretaria thead th {
             text-align: center;
             color: white;
         }
 
-        #tabla-alumno tbody td:eq(0) {
+        #tabla-secretaria tbody td:eq(0) {
             text-align: left;
         }
 
-        #tabla-alumno tbody td {
+        #tabla-secretaria tbody td {
             text-align: center;
             color: dark;
         }
@@ -338,12 +340,12 @@
     </style>
 @endsection
 @section('js')
-    <script src="{{ asset('js/alum_direccion.js') }}"></script>
+    <script src="{{ asset('js/secre_direccion.js') }}"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#tabla-alumno').DataTable({
+            $('#tabla-secretaria').DataTable({
                 serverSide: true,
                 responsive: true,
                 "language": {
@@ -590,19 +592,19 @@
 
                 },
                 ajax: {
-                    url: "{{ route('alumnos.index') }}",
+                    url: "{{ route('secretarias.index') }}",
                 },
                 columns: [{
-                        data: 'alum_dni'
+                        data: 'secre_dni'
                     },
                     {
-                        data: 'alum_fullName'
+                        data: 'secre_fullName'
                     },
                     {
-                        data: 'alum_fullDireccion'
+                        data: 'secre_fullDireccion'
                     },
                     {
-                        data: 'alum_celular'
+                        data: 'secre_celular'
                     },
                     {
                         data: 'action',
@@ -616,14 +618,14 @@
 
     {{-- CREAR --}}
     <script>
-        $('#registro-alumno').submit(function(e) {
+        $('#registro-secretaria').submit(function(e) {
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('alumnos.store') }}",
+                url: "{{ route('secretarias.store') }}",
                 type: "POST",
                 dataType: 'json',
-                data: new FormData($("#registro-alumno")[0]),
+                data: new FormData($("#registro-secretaria")[0]),
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
@@ -634,11 +636,11 @@
                 },
                 success: function(response) {
                     if (response) {
-                        $('#registro-alumno')[0].reset();
-                        toastr.success('El alumno se registró correctamente.', 'Nuevo Registro', {
+                        $('#registro-secretaria')[0].reset();
+                        toastr.success('Los datos se registraron correctamente.', 'Nuevo Registro', {
                             timeOut: 3000
                         });
-                        $('#tabla-alumno').DataTable().ajax.reload();
+                        $('#tabla-secretaria').DataTable().ajax.reload();
                     }
                 },
                 complete: function() {
@@ -704,22 +706,22 @@
             });
         }
 
-        function editAlumno(alum_id) {
-            $.get('alumnos/' + alum_id + '/edit', function(alumno) {
-                $('#update_alum_id').val(alumno[0].alum_id);
-                $('#update_alum_dni').val(alumno[0].alum_dni);
-                $('#update_alum_apellidoPaterno').val(alumno[0].alum_apellidoPaterno);
-                $('#update_alum_apellidoMaterno').val(alumno[0].alum_apellidoMaterno);
-                $('#update_alum_primerNombre').val(alumno[0].alum_primerNombre);
-                $('#update_alum_otrosNombres').val(alumno[0].alum_otrosNombres);
-                $('#update_alum_sexo').val(alumno[0].alum_sexo);
-                $('#update_alum_fechaNacimiento').val(alumno[0].alum_fechaNacimiento);
-                $('#update_alum_direccion').val(alumno[0].alum_direccion);
-                $('#update_alum_telefono').val(alumno[0].alum_telefono);
-                $('#update_alum_celular').val(alumno[0].alum_celular);
-                $('#update_pais_id').val(alumno[0].pais_id);
+        function editSecretaria(secre_id) {
+            $.get('secretarias/' + secre_id + '/edit', function(secretaria) {
+                $('#update_secre_id').val(secretaria[0].secre_id);
+                $('#update_secre_dni').val(secretaria[0].secre_dni);
+                $('#update_secre_sexo').val(secretaria[0].secre_sexo);
+                $('#update_secre_apellidoPaterno').val(secretaria[0].secre_apellidoPaterno);
+                $('#update_secre_apellidoMaterno').val(secretaria[0].secre_apellidoMaterno);
+                $('#update_secre_primerNombre').val(secretaria[0].secre_primerNombre);
+                $('#update_secre_otrosNombres').val(secretaria[0].secre_otrosNombres);
+                $('#update_secre_fechaIngreso').val(secretaria[0].secre_fechaIngreso);
+                $('#update_secre_direccion').val(secretaria[0].secre_direccion);
+                $('#update_secre_celular').val(secretaria[0].secre_celular);
+                $('#update_secre_telefono').val(secretaria[0].secre_telefono);
+                $('#update_pais_id').val(secretaria[0].pais_id);
 
-                $.get('/api/pais/' + alumno[0].pais_id + '/departamentos', function(data) {
+                $.get('/api/pais/' + secretaria[0].pais_id + '/departamentos', function(data) {
                     var html_select = '<option value="">Seleccione Departamento</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].depa_id + '">' + data[i].depa_nombre +
@@ -727,13 +729,13 @@
                     $('#update_depa_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].depa_id == alumno[0].depa_id) {
+                        if (data[i].depa_id == secretaria[0].depa_id) {
                             document.getElementById('update_depa_id').value = data[i].depa_id;
                         }
                     }
                 });
 
-                $.get('/api/departamento/' + alumno[0].depa_id + '/provincias', function(data) {
+                $.get('/api/departamento/' + secretaria[0].depa_id + '/provincias', function(data) {
                     var html_select = '<option value="">Seleccione Provincia</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].prov_id + '">' + data[i].prov_nombre +
@@ -741,13 +743,13 @@
                     $('#update_prov_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].prov_id == alumno[0].prov_id) {
+                        if (data[i].prov_id == secretaria[0].prov_id) {
                             document.getElementById('update_prov_id').value = data[i].prov_id;
                         }
                     }
                 });
 
-                $.get('/api/provincia/' + alumno[0].prov_id + '/distritos', function(data) {
+                $.get('/api/provincia/' + secretaria[0].prov_id + '/distritos', function(data) {
                     var html_select = '<option value="">Seleccione Distrito</option>'
                     for (var i = 0; i < data.length; i++)
                         html_select += '<option value="' + data[i].dist_id + '">' + data[i].dist_nombre +
@@ -755,7 +757,7 @@
                     $('#update_dist_id').html(html_select);
 
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].dist_id == alumno[0].dist_id) {
+                        if (data[i].dist_id == secretaria[0].dist_id) {
                             document.getElementById('update_dist_id').value = data[i].dist_id;
                         }
                     }
@@ -768,20 +770,20 @@
                 });
 
                 $("input[name=_token]").val();
-                $('#alumno_edit_modal').modal('toggle');
+                $('#secretaria_edit_modal').modal('toggle');
             })
         }
     </script>
 
     {{-- ACTUALIZAR --}}
     <script>
-        $('#alumno_edit_form').submit(function(e) {
+        $('#secretaria_edit_form').submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "{{ route('alumnos.actualizar') }}",
+                url: "{{ route('secretarias.actualizar') }}",
                 type: "POST",
                 dataType: 'json',
-                data: new FormData($("#alumno_edit_form")[0]),
+                data: new FormData($("#secretaria_edit_form")[0]),
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
@@ -792,12 +794,12 @@
                 },
                 success: function(response) {
                     if (response) {
-                        $('#alumno_edit_modal').modal('hide');
+                        $('#secretaria_edit_modal').modal('hide');
                         toastr.info('El registro fue actualizado correctamente.',
                             'Actualizar Registro', {
                                 timeOut: 3000
                             });
-                        $('#tabla-alumno').DataTable().ajax.reload();
+                        $('#tabla-secretaria').DataTable().ajax.reload();
                     }
                 },
                 complete: function() {
@@ -812,15 +814,15 @@
 
     {{-- ELIMINAR --}}
     <script>
-        var alum_id;
+        var secre_id;
         $(document).on('click', '.delete', function() {
-            alum_id = $(this).attr('id');
+            secre_id = $(this).attr('id');
             $('#confirmModal').modal('show');
         });
 
         $('#btnEliminar').click(function() {
             $.ajax({
-                url: "alumno/eliminar/" + alum_id,
+                url: "secretaria/eliminar/" + secre_id,
                 beforeSend: function() {
                     $('#btnEliminar').attr("disabled", true);
                     $('#btnEliminar').html(
@@ -839,7 +841,7 @@
                         'Eliminar Registro', {
                             timeOut: 3000
                         });
-                    $('#tabla-alumno').DataTable().ajax.reload();
+                    $('#tabla-secretaria').DataTable().ajax.reload();
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

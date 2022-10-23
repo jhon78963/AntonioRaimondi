@@ -147,6 +147,116 @@ CREATE TABLE alumnos
     updated_at                      timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );
 
+DROP TABLE IF EXISTS docentes;
+CREATE TABLE docentes (
+    doce_id                         int(11) NOT NULL,
+    doce_primerNombre               varchar(25) NOT NULL,
+    doce_otrosNombres               varchar(50) NOT NULL,
+    doce_apellidoPaterno            varchar(25) NOT NULL,
+    doce_apellido_materno           varchar(25) NOT NULL,
+    doce_dni                        varchar(8) NOT NULL,
+    doce_direccion                  varchar(150) NOT NULL,
+    doce_celular                    char(9) NOT NULL,
+    doce_fecha_ingreso              date NOT NULL,
+    doce_estado                     char(1) DEFAULT '0',
+    pais_id                         int(11) NOT NULL,
+    depa_id                         int(11) NOT NULL,
+    prov_id                         int(11) NOT NULL,
+    dist_id                         int(11) NOT NULL,
+    created_at                      timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at                      timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    PRIMARY key(doce_id),
+    foreign key(pais_id) references paises(pais_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(depa_id) references departamentos(depa_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(prov_id) references provincias(prov_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(dist_id) references distritos(dist_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS secretarias;
+CREATE TABLE secretarias (
+    secre_id                        int(11) NOT NULL,
+    secre_primerNombre              varchar(25) NOT NULL,
+    secre_otrosNombres              varchar(50) NOT NULL,
+    secre_apellidoPaterno           varchar(25) NOT NULL,
+    secre_apellido_materno          varchar(25) NOT NULL,
+    secre_dni                       varchar(8) NOT NULL,
+    secre_sexo                      varchar(25) NOT NULL,
+    secre_direccion                 varchar(150) NOT NULL,
+    secre_celular                   char(9) NOT NULL,
+    secre_telefono                  varchar(8) DEFAULT NULL,
+    secre_fecha_ingreso             date NOT NULL,
+    secre_estado                    char(1) DEFAULT '1',
+    pais_id                         int(11) NOT NULL,
+    depa_id                         int(11) NOT NULL,
+    prov_id                         int(11) NOT NULL,
+    dist_id                         int(11) NOT NULL,
+    created_at                      timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at                      timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    PRIMARY key(secre_id),
+    foreign key(pais_id) references paises(pais_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(depa_id) references departamentos(depa_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(prov_id) references provincias(prov_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key(dist_id) references distritos(dist_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS cursos;
+CREATE TABLE cursos (
+  curso_id                          int(11) NOT NULL,
+  curso_descripcion                 varchar(255) NOT NULL,
+  curso_estado                      char(1) NOT NULL,
+  created_at                        timestamp NOT NULL DEFAULT current_timestamp(),
+  updated_at                        timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);
+
+CREATE TABLE `aulas` (
+  `aula_id` int(11) NOT NULL AUTO_INCREMENT,
+  `aula_capacidad` int(11) NOT NULL,
+  `aula_estado` char(1) NOT NULL DEFAULT '0',
+  `secc_id` int(11) NOT NULL,
+  `grado_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY key(aula_id, secc_id, grado_id),
+  foreign key(grado_id) references grados(grado_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  foreign key(secc_id) references secciones(secc_id) ON UPDATE CASCADE ON DELETE CASCADE,
+);
+
+--
+-- Volcado de datos para la tabla `secciones_grados`
+--
+
+INSERT INTO `aulas` (`aula_capacidad`, `aula_estado`, `secc_id`, `grado_id`, `created_at`, `updated_at`) VALUES
+(25, '1', 1, 1, '2021-11-09 03:14:27', '2021-12-11 07:55:07'),
+(25, '1', 2, 1, '2021-11-09 03:15:02', '2021-11-16 07:21:29'),
+(25, '0', 3, 1, '2021-11-09 03:16:07', '2021-11-16 05:56:30'),
+(25, '0', 4, 1, '2021-11-09 03:16:07', '2021-11-10 03:07:57'),
+(25, '0', 5, 1, '2021-11-09 03:16:07', '2021-11-14 08:45:03'),
+(25, '0', 1, 2, '2021-11-09 03:17:11', '2021-11-09 03:17:11'),
+(25, '0', 2, 2, '2021-11-09 03:17:11', '2021-11-09 03:17:11'),
+(25, '0', 3, 2, '2021-11-09 03:17:11', '2021-11-09 03:17:11'),
+(25, '0', 4, 2, '2021-11-09 03:17:11', '2021-11-09 03:17:11'),
+(25, '0', 5, 2, '2021-11-09 03:17:11', '2021-11-09 03:17:11'),
+(25, '0', 1, 3, '2021-11-09 03:20:05', '2021-11-09 03:20:05'),
+(25, '0', 2, 3, '2021-11-09 03:20:05', '2021-11-09 03:20:05'),
+(25, '0', 3, 3, '2021-11-09 03:20:05', '2021-11-09 03:20:05'),
+(25, '0', 4, 3, '2021-11-09 03:20:05', '2021-11-09 03:20:05'),
+(25, '0', 5, 3, '2021-11-09 03:20:05', '2021-11-09 03:20:05'),
+(24, '0', 1, 4, '2021-11-09 03:20:06', '2022-03-22 01:37:11'),
+(25, '0', 2, 4, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 3, 4, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 4, 4, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 5, 4, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 1, 5, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 2, 5, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 3, 5, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 4, 5, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 5, 5, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 1, 6, '2021-11-09 03:20:06', '2021-11-09 03:20:06'),
+(25, '0', 2, 6, '2021-11-09 03:20:07', '2021-11-09 03:20:07'),
+(25, '0', 3, 6, '2021-11-09 03:20:07', '2021-11-09 03:20:07'),
+(25, '0', 4, 6, '2021-11-09 03:20:07', '2021-11-09 03:20:07'),
+(25, '0', 5, 6, '2021-11-09 03:20:07', '2021-11-09 03:20:07');
+
 -- --------------------------------------------------------
 
 --

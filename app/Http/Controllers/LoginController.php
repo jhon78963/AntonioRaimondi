@@ -37,6 +37,10 @@ class LoginController extends Controller
             ->where('user_state', '1')
             ->first();
 
+        $usuario_inhabilitado = User::where('user_name', $usuario)
+            ->where('user_state', '0')
+            ->first();
+
         if(!empty($usuario_existente)){
             $hashp=$usuario_existente->user_password;
             $password=$request->get('user_password');
@@ -52,7 +56,12 @@ class LoginController extends Controller
             }
         }else{
             $respuesta["error"] = true;
-            $respuesta["mensaje"] = "Usuario no existente";
+            if(!empty($usuario_inhabilitado)){
+                $respuesta["mensaje"] = "Usuario inhabilitado";
+            }else{
+                $respuesta["mensaje"] = "Usuario no existente";
+            }
+
         }
         return \Response::json($respuesta);
     }

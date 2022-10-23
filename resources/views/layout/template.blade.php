@@ -98,7 +98,7 @@
                                     </a>
 
                                     <ul class="menu-sub">
-                                        @can('permission.index')
+                                        @can('permissions.index')
                                             <li class="menu-item">
                                                 <a href="{{ route('permissions.index') }}" class="menu-link">
                                                     <div data-i18n="Permisos">Permisos</div>
@@ -132,31 +132,41 @@
                                     </a>
 
                                     <ul class="menu-sub">
-                                        <li class="menu-item">
-                                            <a href="{{ route('alumnos.index') }}" class="menu-link">
-                                                <div data-i18n="Usuarios">Alumnos</div>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="{{ route('roles.index') }}" class="menu-link">
-                                                <div data-i18n="Roles">Docentes</div>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="{{ route('roles.index') }}" class="menu-link">
-                                                <div data-i18n="Roles">Secretarias</div>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="{{ route('permissions.index') }}" class="menu-link">
-                                                <div data-i18n="Permisos">Cursos</div>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="{{ route('permissions.index') }}" class="menu-link">
-                                                <div data-i18n="Permisos">Aulas</div>
-                                            </a>
-                                        </li>
+                                        @can('alumnos.index')
+                                            <li class="menu-item">
+                                                <a href="{{ route('alumnos.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Alumnos</div>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('docentes.index')
+                                            <li class="menu-item">
+                                                <a href="{{ route('docentes.index') }}" class="menu-link">
+                                                    <div data-i18n="Roles">Docentes</div>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('secretarias.index')
+                                            <li class="menu-item">
+                                                <a href="{{ route('secretarias.index') }}" class="menu-link">
+                                                    <div data-i18n="Roles">Secretarias</div>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('cursos.index')
+                                            <li class="menu-item">
+                                                <a href="{{ route('cursos.index') }}" class="menu-link">
+                                                    <div data-i18n="Permisos">Cursos</div>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('aulas.index')
+                                            <li class="menu-item">
+                                                <a href="{{ route('aulas.index') }}" class="menu-link">
+                                                    <div data-i18n="Permisos">Aulas</div>
+                                                </a>
+                                            </li>
+                                        @endcan
                                     </ul>
                                 </li>
                             </ul>

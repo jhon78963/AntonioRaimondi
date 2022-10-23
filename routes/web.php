@@ -52,6 +52,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('alumno/actualizar', [App\Http\Controllers\AlumnoController::class, 'actualizar'])->name('alumnos.actualizar');
     Route::get('alumno/eliminar/{id}', [App\Http\Controllers\AlumnoController::class, 'eliminar'])->name('alumnos.eliminar');
     Route::resource('alumnos', App\Http\Controllers\AlumnoController::class);
+
+    // Docente
+    Route::post('docente/actualizar', [App\Http\Controllers\DocenteController::class, 'actualizar'])->name('docentes.actualizar');
+    Route::get('docente/eliminar/{id}', [App\Http\Controllers\DocenteController::class, 'eliminar'])->name('docentes.eliminar');
+    Route::resource('docentes', App\Http\Controllers\DocenteController::class);
+
+    // Secretaria
+    Route::post('secretaria/actualizar', [App\Http\Controllers\SecretariaController::class, 'actualizar'])->name('secretarias.actualizar');
+    Route::get('secretaria/eliminar/{id}', [App\Http\Controllers\SecretariaController::class, 'eliminar'])->name('secretarias.eliminar');
+    Route::resource('secretarias', App\Http\Controllers\SecretariaController::class);
+
+    // Curso
+    Route::post('curso/actualizar', [App\Http\Controllers\CursoController::class, 'actualizar'])->name('cursos.actualizar');
+    Route::get('curso/eliminar/{id}', [App\Http\Controllers\CursoController::class, 'eliminar'])->name('cursos.eliminar');
+    Route::resource('cursos', App\Http\Controllers\CursoController::class);
+
+    // Aulas
+    Route::post('aula/actualizar', [App\Http\Controllers\AulaController::class, 'actualizar'])->name('aulas.actualizar');
+    Route::get('aula/eliminar/{id}', [App\Http\Controllers\AulaController::class, 'eliminar'])->name('aulas.eliminar');
+    Route::resource('aulas', App\Http\Controllers\AulaController::class);
 });
 
 
