@@ -47,6 +47,57 @@
                         <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
                             <form id="registro-alumno">
                                 @csrf
+                                <div class="row" id="alertError" style="display: none;">
+                                    <div class="col-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <p>Whoops! Ocurrieron algunos errores</p>
+                                            <ul id="listaErrores">
+                                                @error('alum_dni')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_apellidoPaterno')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_apellidoMaterno')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_primerNombre')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_otrosNombres')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_sexo')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_fechaNacimiento')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_direccion')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_telefono')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('alum_celular')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('pais_id')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('depa_id')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('prov_id')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                                @error('dist_id')
+                                                    <li>{{ $message }}</li>
+                                                @enderror
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
 
@@ -640,6 +691,20 @@
                         });
                         $('#tabla-alumno').DataTable().ajax.reload();
                     }
+                },
+                error: function(data) {
+                    let errores = data.responseJSON.errors;
+                    let msjError = '';
+                    Object.values(errores).forEach(function(valor) {
+                        msjError += '<li>' + valor[0] + '</li>';
+                    });
+                    $("#listaErrores").html(msjError);
+                    $("#alertError").show();
+                    $('#btn_registrar').text('Registrar');
+                    $('#btn_registrar').attr("disabled", false);
+                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                        $("#alertError").slideUp(500);
+                    });
                 },
                 complete: function() {
                     $('#btn_registrar').text('Registrar');
