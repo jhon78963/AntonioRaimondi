@@ -331,26 +331,23 @@
                 <!-- Modal Eliminar -->
                 <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form id="rol_delete_form">
-                            @csrf
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Desea eliminar el registro seleccionado?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="submit" class="btn btn-danger" id="btnEliminar"
-                                        name="btnEliminar">Eliminar</button>
-                                </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                        </form>
+                            <div class="modal-body">
+                                ¿Desea eliminar el registro seleccionado?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-danger" id="btnEliminar"
+                                    name="btnEliminar">Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -683,8 +680,8 @@
                         '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...'
                     );
                 },
-                success: function(response) {
-                    if (response) {
+                success: function(data) {
+                    if (data) {
                         $('#registro-alumno')[0].reset();
                         toastr.success('El alumno se registró correctamente.', 'Nuevo Registro', {
                             timeOut: 3000
@@ -834,7 +831,7 @@
 
                 $("input[name=_token]").val();
                 $('#alumno_edit_modal').modal('toggle');
-            })
+            });
         }
     </script>
 
@@ -864,6 +861,9 @@
                             });
                         $('#tabla-alumno').DataTable().ajax.reload();
                     }
+                },
+                error: function(data) {
+                    alert("error");
                 },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
@@ -905,6 +905,16 @@
                             timeOut: 3000
                         });
                     $('#tabla-alumno').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    let msjError = '<li>No tiene permisos para eliminar alumnos</li>';
+                    $("#listaErrores").html(msjError);
+                    $("#alertError").show();
+                    $('#btn_registrar').text('Registrar');
+                    $('#btn_registrar').attr("disabled", false);
+                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                        $("#alertError").slideUp(500);
+                    });
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

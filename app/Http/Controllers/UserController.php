@@ -24,6 +24,7 @@ class UserController extends Controller
         $this->middleware("can:users.show", ['only'=>['show']]);
         $this->middleware("can:users.delete", ['only'=>['eliminar']]);
         $this->middleware("can:users.profile", ['only'=>['profile', 'update']]);
+        $this->middleware("can:users.assign", ['only'=>['asignar', 'guardar']]);
     }
 
     public function index(Request $request)
@@ -37,7 +38,7 @@ class UserController extends Controller
             return DataTables::of($users)
                 ->addColumn('action', function($users){
                     $acciones = '<a href="javascript:void(0)" onclick="editUser('.$users->user_id.')" class="btn btn-info btn-sm"> Editar </a>';
-                    $acciones .= '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="assignRole('.$users->user_id.')" class="btn btn-warning btn-sm"> Asignar </a>';
+                    $acciones .= '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="assignUser('.$users->user_id.')" class="btn btn-warning btn-sm"> Asignar </a>';
                     $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$users->user_id.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                     return $acciones;
                 })

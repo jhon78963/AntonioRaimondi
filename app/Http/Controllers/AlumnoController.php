@@ -64,8 +64,8 @@ class AlumnoController extends Controller
             'alum_sexo' => ['required', 'string'],
             'alum_fechaNacimiento' => ['required', 'date', 'max:25'],
             'alum_direccion' => ['required', 'string', 'max:50'],
-            'alum_telefono' => ['required', 'string', 'max:9', 'min:9'],
-            'alum_celular' => ['required', 'string', 'max:8', 'min:8'],
+            'alum_telefono' => ['required', 'string', 'min:8', 'max:8'],
+            'alum_celular' => ['required', 'string', 'min:9', 'max:9'],
             'pais_id' => ['required'],
             'depa_id' => ['required'],
             'prov_id' => ['required'],
@@ -98,86 +98,78 @@ class AlumnoController extends Controller
             'dist_id.required'=>'Seleccione distrito',
         ]);
 
-        try{
-            if (Alumno::all()->count()) {
-                $last_alum_id = Alumno::all()->last()->alum_id+1;
-            } else {
-                $last_alum_id = 1;
-            }
-
-            DB::table('alumnos')->insert([
-                'alum_id' => $last_alum_id,
-                'alum_dni' => $request->alum_dni,
-                'alum_apellidoPaterno' => $request->alum_apellidoPaterno,
-                'alum_apellidoMaterno' => $request->alum_apellidoMaterno,
-                'alum_primerNombre' => $request->alum_primerNombre,
-                'alum_otrosNombres' => $request->alum_otrosNombres,
-                'alum_sexo' => $request->alum_sexo,
-                'alum_fechaNacimiento' => $request->alum_fechaNacimiento,
-                'alum_direccion' => $request->alum_direccion,
-                'alum_telefono' => $request->alum_telefono,
-                'alum_celular' => $request->alum_celular,
-                'alum_estado' => '0',
-                'pais_id' => $request->pais_id,
-                'depa_id' => $request->depa_id,
-                'prov_id' => $request->prov_id,
-                'dist_id' => $request->dist_id
-            ]);
-
-            $pais = DB::table('paises')->where('pais_id', $request->pais_id)->first();
-            $provincia = DB::table('provincias')->where('prov_id', $request->prov_id)->first();
-            $distrito = DB::table('distritos')->where('dist_id', $request->dist_id)->first();
-
-            if (User::all()->count()) {
-                $last_user_id = User::all()->last()->user_id+1;
-            } else {
-                $last_role_id = 1;
-            }
-
-            DB::table('users')->insert([
-                'user_id' => $last_user_id,
-                'user_name' => $request->alum_dni,
-                'user_password' => Hash::make($request->input('alum_dni')),
-                'user_state' => '1',
-                'role_id' => '3',
-            ]);
-
-            DB::table('user_profiles')->insert([
-                'upro_id' => $last_user_id,
-                'upro_company' => 'AntonioRaimondi',
-                'upro_firstName' => $request->alum_primerNombre,
-                'upro_lastName' => $request->alum_apellidoPaterno.' '.$request->alum_apellidoMaterno,
-                'upro_phoneNumber' => $request->alum_celular,
-                'upro_address' =>  $request->alum_direccion.', '.$distrito->dist_nombre,
-                'upro_city' => $provincia->prov_nombre,
-                'upro_country' => $pais->pais_nombre,
-                'upro_image' => '/img/fotoperfil/user.png',
-                'upro_aboutMe' => 'Estudiante',
-                'user_id' => $last_user_id
-            ]);
-
-            $user = User::find($last_user_id);
-            $user->assignRole('alumno');
-
-            $permissions = DB::table('model_has_roles as mr')
-                ->join('role_has_permissions as rp', 'mr.role_id', 'rp.role_id')
-                ->join('permissions as p', 'rp.permission_id', 'p.id')
-                ->where('mr.model_id', $last_user_id)
-                ->get('p.name');
-
-
-            for($i=0;$i<count($permissions);$i++){
-                $user->givePermissionTo($permissions[$i]->name);
-            }
-
-            return back();
-
-        }catch(\Exception $e)
-        {
-            DB::rollback();
-            return abort(401);
+        if (Alumno::all()->count()) {
+            $last_alum_id = Alumno::all()->last()->alum_id+1;
+        } else {
+            $last_alum_id = 1;
         }
 
+        DB::table('alumnos')->insert([
+            'alum_id' => $last_alum_id,
+            'alum_dni' => $request->alum_dni,
+            'alum_apellidoPaterno' => $request->alum_apellidoPaterno,
+            'alum_apellidoMaterno' => $request->alum_apellidoMaterno,
+            'alum_primerNombre' => $request->alum_primerNombre,
+            'alum_otrosNombres' => $request->alum_otrosNombres,
+            'alum_sexo' => $request->alum_sexo,
+            'alum_fechaNacimiento' => $request->alum_fechaNacimiento,
+            'alum_direccion' => $request->alum_direccion,
+            'alum_telefono' => $request->alum_telefono,
+            'alum_celular' => $request->alum_celular,
+            'alum_estado' => '0',
+            'pais_id' => $request->pais_id,
+            'depa_id' => $request->depa_id,
+            'prov_id' => $request->prov_id,
+            'dist_id' => $request->dist_id
+        ]);
+
+        $pais = DB::table('paises')->where('pais_id', $request->pais_id)->first();
+        $provincia = DB::table('provincias')->where('prov_id', $request->prov_id)->first();
+        $distrito = DB::table('distritos')->where('dist_id', $request->dist_id)->first();
+
+        if (User::all()->count()) {
+            $last_user_id = User::all()->last()->user_id+1;
+        } else {
+            $last_role_id = 1;
+        }
+
+        DB::table('users')->insert([
+            'user_id' => $last_user_id,
+            'user_name' => $request->alum_dni,
+            'user_password' => Hash::make($request->input('alum_dni')),
+            'user_state' => '1',
+            'role_id' => '3',
+        ]);
+
+        DB::table('user_profiles')->insert([
+            'upro_id' => $last_user_id,
+            'upro_company' => 'AntonioRaimondi',
+            'upro_firstName' => $request->alum_primerNombre,
+            'upro_lastName' => $request->alum_apellidoPaterno.' '.$request->alum_apellidoMaterno,
+            'upro_phoneNumber' => $request->alum_celular,
+            'upro_address' =>  $request->alum_direccion.', '.$distrito->dist_nombre,
+            'upro_city' => $provincia->prov_nombre,
+            'upro_country' => $pais->pais_nombre,
+            'upro_image' => '/img/fotoperfil/user.png',
+            'upro_aboutMe' => 'Estudiante',
+            'user_id' => $last_user_id
+        ]);
+
+        $user = User::find($last_user_id);
+        $user->assignRole('alumno');
+
+        $permissions = DB::table('model_has_roles as mr')
+            ->join('role_has_permissions as rp', 'mr.role_id', 'rp.role_id')
+            ->join('permissions as p', 'rp.permission_id', 'p.id')
+            ->where('mr.model_id', $last_user_id)
+            ->get('p.name');
+
+
+        for($i=0;$i<count($permissions);$i++){
+            $user->givePermissionTo($permissions[$i]->name);
+        }
+
+        return back();
     }
 
     public function show($id)

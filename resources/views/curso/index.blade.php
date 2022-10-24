@@ -96,26 +96,32 @@
                 <!-- Modal Eliminar -->
                 <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form id="rol_delete_form">
-                            @csrf
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Desea eliminar el registro seleccionado?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="submit" class="btn btn-danger" id="btnEliminar"
-                                        name="btnEliminar">Eliminar</button>
-                                </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                        </form>
+                            <div class="modal-body">
+                                <div class="row" id="alertError" style="display: none;">
+                                    <div class="col-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <p>Whoops! Ocurrieron algunos errores</p>
+                                            <ul id="listaErrores">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                ¿Desea eliminar el registro seleccionado?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-danger" id="btnEliminar"
+                                    name="btnEliminar">Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -154,7 +160,6 @@
     </style>
 @endsection
 @section('js')
-    <script src="{{ asset('js/curso_direccion.js') }}"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
@@ -540,6 +545,16 @@
                             timeOut: 3000
                         });
                     $('#tabla-curso').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    let msjError = '<li>No tiene permisos para eliminar cursos</li>';
+                    $("#listaErrores").html(msjError);
+                    $("#alertError").show();
+                    $('#btn_registrar').text('Registrar');
+                    $('#btn_registrar').attr("disabled", false);
+                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                        $("#alertError").slideUp(500);
+                    });
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

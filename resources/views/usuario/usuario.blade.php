@@ -138,26 +138,23 @@
                 <!-- Modal Eliminar -->
                 <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form id="confirmModal">
-                            @csrf
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Desea eliminar el registro seleccionado?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="submit" class="btn btn-danger" id="btnEliminar"
-                                        name="btnEliminar">Eliminar</button>
-                                </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Confirmación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                        </form>
+                            <div class="modal-body">
+                                ¿Desea eliminar el registro seleccionado?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-danger" id="btnEliminar"
+                                    name="btnEliminar">Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -562,7 +559,7 @@
 
     {{-- ASIGNAR --}}
     <script>
-        function assignRole(user_id) {
+        function assignUser(user_id) {
             $.get('user/' + user_id + '/assign', function(user) {
                 $('#asignar_user_id').val(user[0].user_id);
                 $("input[name=_token]").val();
