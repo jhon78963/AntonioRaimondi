@@ -17,6 +17,8 @@ class AulaController extends Controller
         $this->middleware("can:aulas.edit", ['only'=>['actualizar']]);
         $this->middleware("can:aulas.show", ['only'=>['show']]);
         $this->middleware("can:aulas.delete", ['only'=>['destroy', 'eliminar']]);
+        $this->middleware("can:aulas.grado", ['only'=>['grado']]);
+        $this->middleware("can:aulas.seccion", ['only'=>['seccion']]);
     }
 
     public function index(Request $request)
@@ -50,7 +52,81 @@ class AulaController extends Controller
 
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'grado_id' => ['required'],
+            'secc_id' => ['required'],
+            'aula_capacidad' => ['required', 'integer'],
+        ],
+        [
+            'grado_id.required'=>'Seleccione grado',
+            'secc_id.required'=>'Seleccione sección',
+            'aula_capacidad.required'=>'Ingrese la capacidad del aula',
+            'aula_capacidad.integer'=>'La capacidad del aula ingresada solo debe contener números enteros',
+        ]);
+
+        if (Aula::all()->count()) {
+            $last_aula_id = Aula::all()->last()->aula_id+1;
+        } else {
+            $last_aula_id = 1;
+        }
+
+        DB::table('cursos')->insert([
+            'aula_id' => $last_aula_id,
+            'grado_id' => $request->grado_id,
+            'secc_id' => $request->secc_id,
+            'aula_nombre' => $request->aula_capacidad,
+            'aula_estado' => '0'
+        ]);
+
+        return back();
+    }
+
+    public function grado(Request $request)
+    {
+        request()->validate([
+            'grado_descripcion' => ['required', 'max:25'],
+        ],
+        [
+            'grado_descripcion.required'=>'Ingrese el grado',
+            'grado_descripcion.max'=>'Maximo 25 caracteres permitidos para el campo Grado',
+        ]);
+
+        if (Grado::all()->count()) {
+            $last_grado_id = Grado::all()->last()->grado_id+1;
+        } else {
+            $last_grado_id = 1;
+        }
+
+        DB::table('grados')->insert([
+            'grado_id' => $last_grado_id,
+            'grado_descripcion' => $request->grado_descripcion,
+        ]);
+
+        return back();
+    }
+
+    public function seccion(Request $request)
+    {
+        request()->validate([
+            'secc_descripcion' => ['required', 'max:1'],
+        ],
+        [
+            'secc_descripcion.required'=>'Ingrese la seccion',
+            'secc_descripcion.max'=>'Maximo 1 caracteres permitidos para el campo Sección',
+        ]);
+
+        if (Seccion::all()->count()) {
+            $last_secc_id = Seccion::all()->last()->secc_id+1;
+        } else {
+            $last_secc_id = 1;
+        }
+
+        DB::table('secciones')->insert([
+            'secc_id' => $last_secc_id,
+            'secc_descripcion' => $request->secc_descripcion,
+        ]);
+
+        return back();
     }
 
     public function show($id)
@@ -60,7 +136,26 @@ class AulaController extends Controller
 
     public function edit($id)
     {
-        //
+        $aulas = DB::table('aulas')->where('aula_id', $id)->get();
+        return response()->json($aulas);
+    }
+
+    public function actualizar(Request $request)
+    {
+        DB::table('aulas')->where('aula_id', $request->aula_id)->update([
+            'grado_id' => $request->grado_id,
+            'secc_id' => $request->secc_id,
+            'aula_nombre' => $request->aula_capacidad,
+        ]);
+
+        return back();
+    }
+
+    public function eliminar($id)
+    {
+        DB::table('aulas')->where('aula_id', $id)->delete();
+        DB::table('aulas')->where('aula_id', '>', $id)->decrement('aula_id', 1);
+        return back();
     }
 
     public function update(Request $request, $id)

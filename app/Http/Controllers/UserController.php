@@ -20,11 +20,11 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware("can:users.index", ['only'=>['index']]);
         $this->middleware("can:users.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:users.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:users.edit", ['only'=>['actualizar']]);
         $this->middleware("can:users.show", ['only'=>['show']]);
         $this->middleware("can:users.delete", ['only'=>['eliminar']]);
         $this->middleware("can:users.profile", ['only'=>['profile', 'update']]);
-        $this->middleware("can:users.assign", ['only'=>['asignar', 'guardar']]);
+        $this->middleware("can:users.assign", ['only'=>['guardar']]);
     }
 
     public function index(Request $request)
@@ -58,6 +58,19 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'user_name' => ['required',  'unique:users','max:8', 'min:8'],
+            'user_password' => ['required', 'max:25', 'min:8'],
+        ],
+        [
+            'user_name.required'=>'Ingrese el usuario',
+            'user_name.max'=>'Maximo 25 caracteres permitidos para el usuario',
+            'user_name.unique'=>'El usuario ingresado ya se ha registrado en el sistema',
+            'user_password.required'=>'Ingrese la contraseña del usuario',
+            'user_password.min'=> 'Mínimo 8 caracteres permitidos para el password del usuario',
+            'user_password.max'=> 'Maximo 25 caracteres permitidos para el password del usuario',
+        ]);
+
         if (User::all()->count()) {
             $last_user_id = User::all()->last()->user_id+1;
         } else {
@@ -125,23 +138,31 @@ class UserController extends Controller
 
     public function guardar(Request $request)
     {
+        request()->validate([
+            'role_id' => ['required'],
+        ],
+        [
+            'role_id.required'=>'Seleccione rol',
+        ]);
 
-        DB::table('model_has_permissions as mp')->join('model_has_roles as mr', 'mp.model_id', 'mr.model_id')->where('mr.role_id', $request->role_id)->delete();
-        DB::table('model_has_roles')->where('role_id', $request->role_id)->delete();
+        if ($request->role_id != null){
+            DB::table('model_has_permissions as mp')->join('model_has_roles as mr', 'mp.model_id', 'mr.model_id')->where('mr.role_id', $request->role_id)->delete();
+            DB::table('model_has_roles')->where('role_id', $request->role_id)->delete();
 
-        $user = User::find($request->user_id);
-        $rol = Role::find($request->role_id);
+            $user = User::find($request->user_id);
+            $rol = Role::find($request->role_id);
 
-        $user->assignRole($rol->name);
+            $user->assignRole($rol->name);
 
-        $permissions = DB::table('role_has_permissions as rp')
-            ->join('permissions as p', 'rp.permission_id', 'p.id')
-            ->where('rp.role_id', $request->role_id)
-            ->get('p.name');
+            $permissions = DB::table('role_has_permissions as rp')
+                ->join('permissions as p', 'rp.permission_id', 'p.id')
+                ->where('rp.role_id', $request->role_id)
+                ->get('p.name');
 
 
-        for($i=0;$i<count($permissions);$i++){
-            $user->givePermissionTo($permissions[$i]->name);
+            for($i=0;$i<count($permissions);$i++){
+                $user->givePermissionTo($permissions[$i]->name);
+            }
         }
 
         return back();

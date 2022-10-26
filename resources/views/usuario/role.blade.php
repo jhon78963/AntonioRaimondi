@@ -11,7 +11,6 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
-
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item">
@@ -29,6 +28,18 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('curso_nombre')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -103,8 +114,8 @@
                                     <input type="hidden" id="update_role_id" name="role_id">
                                     <div class="mb-3">
                                         <label class="form-label" for="update_role_name">Rol</label>
-                                        <input type="text" class="form-control" id="update_role_name" name="role_name"
-                                            placeholder="rol" />
+                                        <input type="text" class="form-control" id="update_role_name"
+                                            name="role_name" placeholder="rol" />
                                     </div>
 
                                     <div class="mb-3">
@@ -505,6 +516,44 @@
                         $('#tabla-rol').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un rol</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btn_registrar').text('REGISTRAR');
                     $('#btn_registrar').attr("disabled", false);
@@ -565,6 +614,32 @@
                         $('#tabla-rol').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    $('#role_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar un rol</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
                     $('#btnActualizar').attr("disabled", false);
@@ -605,6 +680,32 @@
                             timeOut: 3000
                         });
                     $('#tabla-rol').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar un rol</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

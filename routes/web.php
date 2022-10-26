@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Aulas
     Route::post('aula/actualizar', [App\Http\Controllers\AulaController::class, 'actualizar'])->name('aulas.actualizar');
     Route::get('aula/eliminar/{id}', [App\Http\Controllers\AulaController::class, 'eliminar'])->name('aulas.eliminar');
+    Route::post('aula/grado', [App\Http\Controllers\AulaController::class, 'grado'])->name('aulas.grado');
+    Route::post('aula/seccion', [App\Http\Controllers\AulaController::class, 'seccion'])->name('aulas.seccion');
     Route::resource('aulas', App\Http\Controllers\AulaController::class);
 
     // Errors

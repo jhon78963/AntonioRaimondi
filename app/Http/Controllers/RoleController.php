@@ -21,7 +21,7 @@ class RoleController extends Controller
     public function __construct(){
         $this->middleware("can:roles.index", ['only'=>['index']]);
         $this->middleware("can:roles.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:roles.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:roles.edit", ['only'=>['actualizar']]);
         $this->middleware("can:roles.show", ['only'=>['show']]);
         $this->middleware("can:roles.delete", ['only'=>['eliminar']]);
     }
@@ -50,6 +50,15 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'role_name' => ['required', 'string', 'max:25'],
+        ],
+        [
+            'role_name.required'=>'Ingrese nombre del rol',
+            'role_name.alpha'=>'El nombre del rol solo debe contener letras',
+            'role_name.max'=>'Maximo 25 caracteres permitidos para el nombre del rol',
+        ]);
+
         if (Role::all()->count()) {
             $last_role_id = Role::all()->last()->id+1;
         } else {

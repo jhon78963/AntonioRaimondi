@@ -1,7 +1,7 @@
 @extends('layout.template')
 
 @section('title')
-    <title>ZeroGRUPS | Rol</title>
+    <title>ZeroGRUPS | Usuario</title>
 @endsection
 
 @section('content')
@@ -29,6 +29,24 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('user_name')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('user_password')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('role_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -116,7 +134,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="update_role_id">Rol</label>
                                         <select name="role_id" id="update_role_id" class="form-control">
-                                            <option value="0">Seleccione ...</option>
+                                            <option value="">Seleccione ...</option>
                                             @foreach ($roles as $rol)
                                                 <option value="{{ $rol->id }}">{{ $rol->name }}
                                                 </option>
@@ -490,6 +508,44 @@
                         $('#tabla-user').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un usuario</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btn_registrar').text('REGISTRAR');
                     $('#btn_registrar').attr("disabled", false);
@@ -547,6 +603,32 @@
                         $('#tabla-user').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    $('#user_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar un usuario</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
                     $('#btnActualizar').attr("disabled", false);
@@ -596,6 +678,46 @@
                         $('#tabla-user').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    $('#user_asignar_modal').modal('hide');
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError =
+                            '<li>No tiene permisos para asignar un rol al usuario seleccionado</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btnAsignar').text('Actualizar');
                     $('#btnAsignar').attr("disabled", false);
@@ -636,6 +758,32 @@
                             timeOut: 3000
                         });
                     $('#tabla-user').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar un usuario</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

@@ -21,7 +21,7 @@ class PermissionController extends Controller
     public function __construct(){
         $this->middleware("can:permissions.index", ['only'=>['index']]);
         $this->middleware("can:permissions.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:permissions.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:permissions.edit", ['only'=>['actualizar']]);
         $this->middleware("can:permissions.show", ['only'=>['show']]);
         $this->middleware("can:permissions.delete", ['only'=>['eliminar']]);
     }
@@ -51,6 +51,15 @@ class PermissionController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'perm_name' => ['required', 'max:25'],
+        ],
+        [
+            'perm_name.required'=>'Ingrese nombre del permiso',
+            'perm_name.alpha'=>'El nombre del permiso solo debe contener letras',
+            'perm_name.max'=>'Maximo 25 caracteres permitidos para el nombre del permiso',
+        ]);
+
         if (Permission::all()->count()) {
             $last_perm_id = Permission::all()->last()->id+1;
         } else {

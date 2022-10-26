@@ -43,6 +43,24 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('grado_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secc_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('aula_capacidad')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -63,7 +81,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="aula_nombre">Grado</label>
-                                        <select name="grado_id" id="grado_id" class="form-control" required>
+                                        <select name="grado_id" id="grado_id" class="form-control">
                                             <option value="">Seleccion grado</option>
                                             @foreach ($grados as $grado)
                                                 <option value="{{ $grado->grado_id }}">{{ $grado->grado_descripcion }}
@@ -73,7 +91,7 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="aula_nombre">Sección</label>
-                                        <select name="secc_id" id="secc_id" class="form-control" required>
+                                        <select name="secc_id" id="secc_id" class="form-control">
                                             <option value="">Seleccion grado</option>
                                             @foreach ($secciones as $seccion)
                                                 <option value="{{ $seccion->secc_id }}">{{ $seccion->secc_descripcion }}
@@ -138,11 +156,34 @@
                                 <div class="modal-body">
                                     <input type="hidden" id="update_aula_id" name="aula_id">
                                     <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="aula_nombre">Grado</label>
+                                            <select name="grado_id" id="update_grado_id" class="form-control">
+                                                <option value="">Seleccion grado</option>
+                                                @foreach ($grados as $grado)
+                                                    <option value="{{ $grado->grado_id }}">{{ $grado->grado_descripcion }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label" for="aula_nombre">Sección</label>
+                                            <select name="secc_id" id="update_secc_id" class="form-control">
+                                                <option value="">Seleccion grado</option>
+                                                @foreach ($secciones as $seccion)
+                                                    <option value="{{ $seccion->secc_id }}">
+                                                        {{ $seccion->secc_descripcion }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
                                         <div class="mb-3 col-md-12">
-                                            <label class="form-label" for="aula_sexo">Nombre del
-                                                aula</label>
-                                            <input type="text" class="form-control" id="update_aula_nombre"
-                                                name="aula_nombre" placeholder="aulao">
+                                            <label class="form-label" for="aula_nombre">Capacidad</label>
+                                            <input type="number" name="aula_capacidad" id="update_aula_capacidad"
+                                                class="form-control" placeholder="Capacidad del aula">
                                         </div>
                                     </div>
 
@@ -216,7 +257,6 @@
     </style>
 @endsection
 @section('js')
-    <script src="{{ asset('js/aula_direccion.js') }}"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
@@ -489,7 +529,7 @@
     </script>
 
 
-    {{-- CREAR --}}
+    {{-- CREAR AULA --}}
     <script>
         $('#registro-aula').submit(function(e) {
             e.preventDefault();
@@ -516,9 +556,195 @@
                         $('#tabla-aula').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un aula</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btn_registrar').text('Registrar');
                     $('#btn_registrar').attr("disabled", false);
+                }
+
+            });
+
+        });
+    </script>
+
+    {{-- CREAR GRADO --}}
+    <script>
+        $('#registro-grado').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "{{ route('aulas.grado') }}",
+                type: "POST",
+                dataType: 'json',
+                data: new FormData($("#registro-grado")[0]),
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#btn_registrar_grado').attr("disabled", true);
+                    $('#btn_registrar_grado').html(
+                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...'
+                    );
+                },
+                success: function(response) {
+                    if (response) {
+                        $('#registro-grado')[0].reset();
+                        toastr.success('El alumno se registró correctamente.', 'Nuevo Registro', {
+                            timeOut: 3000
+                        });
+                    }
+                },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_grado').text('Registrar');
+                        $('#btn_registrar_grado').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un grado</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_grado').text('Registrar');
+                        $('#btn_registrar_grado').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_grado').text('Registrar');
+                        $('#btn_registrar_grado').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
+                complete: function() {
+                    $('#btn_registrar_grado').text('Registrar');
+                    $('#btn_registrar_grado').attr("disabled", false);
+                }
+
+            });
+
+        });
+    </script>
+
+    {{-- CREAR SECCION --}}
+    <script>
+        $('#registro-seccion').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "{{ route('aulas.seccion') }}",
+                type: "POST",
+                dataType: 'json',
+                data: new FormData($("#registro-seccion")[0]),
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#btn_registrar_seccion').attr("disabled", true);
+                    $('#btn_registrar_seccion').html(
+                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...'
+                    );
+                },
+                success: function(response) {
+                    if (response) {
+                        $('#registro-seccion')[0].reset();
+                        toastr.success('La sección se registró correctamente.', 'Nuevo Registro', {
+                            timeOut: 3000
+                        });
+                    }
+                },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_seccion').text('Registrar');
+                        $('#btn_registrar_seccion').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar una sección</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_seccion').text('Registrar');
+                        $('#btn_registrar_seccion').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar_seccion').text('Registrar');
+                        $('#btn_registrar_seccion').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
+                complete: function() {
+                    $('#btn_registrar_seccion').text('Registrar');
+                    $('#btn_registrar_seccion').attr("disabled", false);
                 }
 
             });
@@ -531,7 +757,9 @@
         function editAula(aula_id) {
             $.get('aulas/' + aula_id + '/edit', function(aula) {
                 $('#update_aula_id').val(aula[0].aula_id);
-                $('#update_aula_nombre').val(aula[0].aula_nombre);
+                $('#update_grado_id').val(aula[0].grado_id);
+                $('#update_secc_id').val(aula[0].secc_id);
+                $('#update_aula_capacidad').val(aula[0].aula_capacidad);
                 $("input[name=_token]").val();
                 $('#aula_edit_modal').modal('toggle');
             })
@@ -563,6 +791,32 @@
                                 timeOut: 3000
                             });
                         $('#tabla-aula').DataTable().ajax.reload();
+                    }
+                },
+                error: function(data) {
+                    $('#aula_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar un aula</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
                     }
                 },
                 complete: function() {
@@ -605,6 +859,32 @@
                             timeOut: 3000
                         });
                     $('#tabla-aula').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar un aula</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');
