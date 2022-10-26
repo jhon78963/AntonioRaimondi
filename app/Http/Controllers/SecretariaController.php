@@ -19,7 +19,7 @@ class SecretariaController extends Controller
     public function __construct(){
         $this->middleware("can:secretarias.index", ['only'=>['index']]);
         $this->middleware("can:secretarias.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:secretarias.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:secretarias.edit", ['only'=>['actualizar']]);
         $this->middleware("can:secretarias.show", ['only'=>['show']]);
         $this->middleware("can:secretarias.delete", ['only'=>['destroy', 'eliminar']]);
     }
@@ -55,6 +55,55 @@ class SecretariaController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'user_name' => ['required',  'unique:users','max:8', 'min:8'],
+            'secre_apellidoPaterno' => ['required', 'alpha', 'max:25'],
+            'secre_apellidoMaterno' => ['required', 'alpha', 'max:25'],
+            'secre_primerNombre' => ['required', 'alpha', 'max:25'],
+            'secre_otrosNombres' => ['alpha', 'nullable','max:25'],
+            'secre_sexo' => ['required', 'alpha'],
+            'secre_fechaIngreso' => ['required', 'date', 'max:25'],
+            'secre_direccion' => ['required', 'string', 'max:50'],
+            'secre_telefono' => ['nullable', 'min:8', 'max:8'],
+            'secre_celular' => ['required', 'min:9', 'max:9'],
+            'pais_id' => ['required'],
+            'depa_id' => ['required'],
+            'prov_id' => ['required'],
+            'dist_id' => ['required'],
+        ],
+        [
+            'user_name.required'=>'Ingrese dni',
+            'user_name.max'=>'Maximo 8 caracteres permitidos para el campo DNI',
+            'user_name.min'=>'Mínimo 8 caracteres permitidos para el campo DNI',
+            'user_name.unique'=>'El dni ingresado ya se ha registrado en el sistema',
+            'secre_apellidoPaterno.required'=>'Ingrese apellido paterno',
+            'secre_apellidoPaterno.alpha'=>'El apellido paterno solo debe contener letras',
+            'secre_apellidoPaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Paterno',
+            'secre_apellidoMaterno.required'=>'Ingrese apellido materno',
+            'secre_apellidoMaterno.alpha'=>'El apellido materno solo debe contener letras',
+            'secre_apellidoMaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Materno',
+            'secre_primerNombre.required'=>'Ingrese primer nombre',
+            'secre_primerNombre.alpha'=>'El primer nombre solo debe contener letras',
+            'secre_primerNombre.max'=>'Maximo 25 caracteres permitidos para el campo Primer Nombre',
+            'secre_otrosNombres.max'=>'Maximo 25 caracteres permitidos para el campo Otros Nombres',
+            'secre_otrosNombres.alpha'=>'Los otros nombres solo deben contener letras',
+            'secre_sexo.required'=>'Seleccione género',
+            'secre_fechaIngreso.required'=>'Seleccione fecha',
+            'secre_direccion.required'=>'Ingrese dirección',
+            'secre_direccion.max'=>'Maximo 50 caracteres permitidos para el campo Dirección',
+            'secre_telefono.max'=>'Maximo 8 caracteres permitidos para el campo Telefono',
+            'secre_telefono.min'=>'Mínimo 8 caracteres permitidos para el campo Telefono',
+            'secre_telefono.integer'=>'El telefono ingresado debe contener solo números enteros',
+            'secre_celular.required'=>'Ingrese celular',
+            'secre_celular.max'=>'Maximo 9 caracteres permitidos para el campo Celular',
+            'secre_celular.min'=>'Mínimo 9 caracteres permitidos para el campo Celular',
+            'secre_celular.integer'=>'El celular ingresado debe contener solo números enteros',
+            'pais_id.required'=>'Seleccione país',
+            'depa_id.required'=>'Seleccione departamento',
+            'prov_id.required'=>'Seleccione provincia',
+            'dist_id.required'=>'Seleccione distrito',
+        ]);
+
         if (Secretaria::all()->count()) {
             $last_secre_id = Secretaria::all()->last()->secre_id+1;
         } else {
@@ -63,7 +112,7 @@ class SecretariaController extends Controller
 
         DB::table('secretarias')->insert([
             'secre_id' => $last_secre_id,
-            'secre_dni' => $request->secre_dni,
+            'secre_dni' => $request->user_name,
             'secre_apellidoPaterno' => $request->secre_apellidoPaterno,
             'secre_apellidoMaterno' => $request->secre_apellidoMaterno,
             'secre_primerNombre' => $request->secre_primerNombre,
@@ -92,8 +141,8 @@ class SecretariaController extends Controller
 
         DB::table('users')->insert([
             'user_id' => $last_user_id,
-            'user_name' => $request->secre_dni,
-            'user_password' => Hash::make($request->input('secre_dni')),
+            'user_name' => $request->user_name,
+            'user_password' => Hash::make($request->input('user_name')),
             'user_state' => '1',
             'role_id' => '4',
         ]);

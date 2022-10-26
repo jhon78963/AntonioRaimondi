@@ -11,7 +11,6 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
-
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item">
@@ -29,6 +28,18 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('curso_nombre')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -103,15 +114,6 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="row" id="alertError" style="display: none;">
-                                    <div class="col-12">
-                                        <div class="alert alert-danger" role="alert">
-                                            <p>Whoops! Ocurrieron algunos errores</p>
-                                            <ul id="listaErrores">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                                 ¿Desea eliminar el registro seleccionado?
                             </div>
                             <div class="modal-footer">
@@ -456,6 +458,44 @@
                         $('#tabla-curso').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un curso</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btn_registrar').text('Registrar');
                     $('#btn_registrar').attr("disabled", false);
@@ -505,6 +545,32 @@
                         $('#tabla-curso').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    $('#curso_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar un curso</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
                     $('#btnActualizar').attr("disabled", false);
@@ -547,14 +613,30 @@
                     $('#tabla-curso').DataTable().ajax.reload();
                 },
                 error: function(data) {
-                    let msjError = '<li>No tiene permisos para eliminar cursos</li>';
-                    $("#listaErrores").html(msjError);
-                    $("#alertError").show();
-                    $('#btn_registrar').text('Registrar');
-                    $('#btn_registrar').attr("disabled", false);
-                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
-                        $("#alertError").slideUp(500);
-                    });
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar un curso</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

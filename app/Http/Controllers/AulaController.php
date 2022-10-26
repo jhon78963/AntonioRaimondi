@@ -14,7 +14,7 @@ class AulaController extends Controller
     public function __construct(){
         $this->middleware("can:aulas.index", ['only'=>['index']]);
         $this->middleware("can:aulas.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:aulas.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:aulas.edit", ['only'=>['actualizar']]);
         $this->middleware("can:aulas.show", ['only'=>['show']]);
         $this->middleware("can:aulas.delete", ['only'=>['destroy', 'eliminar']]);
     }
@@ -38,7 +38,7 @@ class AulaController extends Controller
         }
 
         $grados = Grado::all();
-        $secciones = Seccion::all();
+        $secciones = Seccion::where('aula_estado', '0');
 
         return view('aula.index', compact('grados', 'secciones'));
     }

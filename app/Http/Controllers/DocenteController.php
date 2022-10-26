@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\Docente;
+use App\Models\Alumno;
 use App\Models\Pais;
 use App\Models\Departamento;
 use App\Models\Provincia;
@@ -19,7 +20,7 @@ class DocenteController extends Controller
     public function __construct(){
         $this->middleware("can:docentes.index", ['only'=>['index']]);
         $this->middleware("can:docentes.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:docentes.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:docentes.edit", ['only'=>['actualizar']]);
         $this->middleware("can:docentes.show", ['only'=>['show']]);
         $this->middleware("can:docentes.delete", ['only'=>['destroy', 'eliminar']]);
     }
@@ -55,6 +56,55 @@ class DocenteController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'user_name' => ['required',  'unique:users','max:8', 'min:8'],
+            'doce_apellidoPaterno' => ['required', 'alpha', 'max:25'],
+            'doce_apellidoMaterno' => ['required', 'alpha', 'max:25'],
+            'doce_primerNombre' => ['required', 'alpha', 'max:25'],
+            'doce_otrosNombres' => ['alpha', 'nullable','max:25'],
+            'doce_sexo' => ['required', 'alpha'],
+            'doce_fechaIngreso' => ['required', 'date', 'max:25'],
+            'doce_direccion' => ['required', 'string', 'max:50'],
+            'doce_telefono' => ['nullable', 'min:8', 'max:8'],
+            'doce_celular' => ['required', 'min:9', 'max:9'],
+            'pais_id' => ['required'],
+            'depa_id' => ['required'],
+            'prov_id' => ['required'],
+            'dist_id' => ['required'],
+        ],
+        [
+            'user_name.required'=>'Ingrese dni',
+            'user_name.max'=>'Maximo 8 caracteres permitidos para el campo DNI',
+            'user_name.min'=>'Mínimo 8 caracteres permitidos para el campo DNI',
+            'user_name.unique'=>'El dni ingresado ya se ha registrado en el sistema',
+            'doce_apellidoPaterno.required'=>'Ingrese apellido paterno',
+            'doce_apellidoPaterno.alpha'=>'El apellido paterno solo debe contener letras',
+            'doce_apellidoPaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Paterno',
+            'doce_apellidoMaterno.required'=>'Ingrese apellido materno',
+            'doce_apellidoMaterno.alpha'=>'El apellido materno solo debe contener letras',
+            'doce_apellidoMaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Materno',
+            'doce_primerNombre.required'=>'Ingrese primer nombre',
+            'doce_primerNombre.alpha'=>'El primer nombre solo debe contener letras',
+            'doce_primerNombre.max'=>'Maximo 25 caracteres permitidos para el campo Primer Nombre',
+            'doce_otrosNombres.max'=>'Maximo 25 caracteres permitidos para el campo Otros Nombres',
+            'doce_otrosNombres.alpha'=>'Los otros nombres solo deben contener letras',
+            'doce_sexo.required'=>'Seleccione género',
+            'doce_fechaIngreso.required'=>'Seleccione fecha',
+            'doce_direccion.required'=>'Ingrese dirección',
+            'doce_direccion.max'=>'Maximo 50 caracteres permitidos para el campo Dirección',
+            'doce_telefono.max'=>'Maximo 8 caracteres permitidos para el campo Telefono',
+            'doce_telefono.min'=>'Mínimo 8 caracteres permitidos para el campo Telefono',
+            'doce_telefono.integer'=>'El telefono ingresado debe contener solo números enteros',
+            'doce_celular.required'=>'Ingrese celular',
+            'doce_celular.max'=>'Maximo 9 caracteres permitidos para el campo Celular',
+            'doce_celular.min'=>'Mínimo 9 caracteres permitidos para el campo Celular',
+            'doce_celular.integer'=>'El celular ingresado debe contener solo números enteros',
+            'pais_id.required'=>'Seleccione país',
+            'depa_id.required'=>'Seleccione departamento',
+            'prov_id.required'=>'Seleccione provincia',
+            'dist_id.required'=>'Seleccione distrito',
+        ]);
+
         if (Docente::all()->count()) {
             $last_doce_id = Docente::all()->last()->doce_id+1;
         } else {
@@ -63,7 +113,7 @@ class DocenteController extends Controller
 
         DB::table('docentes')->insert([
             'doce_id' => $last_doce_id,
-            'doce_dni' => $request->doce_dni,
+            'doce_dni' => $request->user_name,
             'doce_apellidoPaterno' => $request->doce_apellidoPaterno,
             'doce_apellidoMaterno' => $request->doce_apellidoMaterno,
             'doce_primerNombre' => $request->doce_primerNombre,
@@ -92,8 +142,8 @@ class DocenteController extends Controller
 
         DB::table('users')->insert([
             'user_id' => $last_user_id,
-            'user_name' => $request->doce_dni,
-            'user_password' => Hash::make($request->input('doce_dni')),
+            'user_name' => $request->user_name,
+            'user_password' => Hash::make($request->input('user_name')),
             'user_state' => '1',
             'role_id' => '3',
         ]);

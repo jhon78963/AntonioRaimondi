@@ -12,7 +12,7 @@ class CursoController extends Controller
     public function __construct(){
         $this->middleware("can:cursos.index", ['only'=>['index']]);
         $this->middleware("can:cursos.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:cursos.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:cursos.edit", ['only'=>['actualizar']]);
         $this->middleware("can:cursos.show", ['only'=>['show']]);
         $this->middleware("can:cursos.delete", ['only'=>['destroy', 'eliminar']]);
     }
@@ -41,6 +41,15 @@ class CursoController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate([
+            'curso_nombre' => ['required', 'alpha', 'max:25'],
+        ],
+        [
+            'curso_nombre.required'=>'Ingrese nombre del curso',
+            'curso_nombre.alpha'=>'El nombre del curso solo debe contener letras',
+            'curso_nombre.max'=>'Maximo 25 caracteres permitidos para el nombre del curso',
+        ]);
+
         if (Curso::all()->count()) {
             $last_curso_id = Curso::all()->last()->curso_id+1;
         } else {

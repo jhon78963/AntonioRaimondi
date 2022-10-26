@@ -19,7 +19,7 @@ class AlumnoController extends Controller
     public function __construct(){
         $this->middleware("can:alumnos.index", ['only'=>['index']]);
         $this->middleware("can:alumnos.create", ['only'=>['create', 'store']]);
-        $this->middleware("can:alumnos.edit", ['only'=>['edit', 'actualizar']]);
+        $this->middleware("can:alumnos.edit", ['only'=>['actualizar']]);
         $this->middleware("can:alumnos.show", ['only'=>['show']]);
         $this->middleware("can:alumnos.delete", ['only'=>['destroy', 'eliminar']]);
     }
@@ -56,42 +56,48 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'alum_dni' => ['required', 'string', 'max:8', 'min:8', 'unique:alumnos'],
-            'alum_apellidoPaterno' => ['required', 'string', 'max:25'],
-            'alum_apellidoMaterno' => ['required', 'string', 'max:25'],
-            'alum_primerNombre' => ['required', 'string', 'max:25'],
-            'alum_otrosNombres' => ['string', 'max:25'],
-            'alum_sexo' => ['required', 'string'],
+            'user_name' => ['required',  'unique:users','max:8', 'min:8'],
+            'alum_apellidoPaterno' => ['required', 'alpha', 'max:25'],
+            'alum_apellidoMaterno' => ['required', 'alpha', 'max:25'],
+            'alum_primerNombre' => ['required', 'alpha', 'max:25'],
+            'alum_otrosNombres' => ['alpha', 'nullable','max:25'],
+            'alum_sexo' => ['required', 'alpha'],
             'alum_fechaNacimiento' => ['required', 'date', 'max:25'],
             'alum_direccion' => ['required', 'string', 'max:50'],
-            'alum_telefono' => ['required', 'string', 'min:8', 'max:8'],
-            'alum_celular' => ['required', 'string', 'min:9', 'max:9'],
+            'alum_telefono' => ['nullable', 'min:8', 'max:8'],
+            'alum_celular' => ['required', 'min:9', 'max:9'],
             'pais_id' => ['required'],
             'depa_id' => ['required'],
             'prov_id' => ['required'],
             'dist_id' => ['required'],
         ],
         [
-            'alum_dni.required'=>'Ingrese dni',
-            'alum_dni.max'=>'Maximo 8 caracteres permitidos para el campo DNI',
-            'alum_dni.min'=>'Mínimo 8 caracteres permitidos para el campo DNI',
+            'user_name.required'=>'Ingrese dni',
+            'user_name.max'=>'Maximo 8 caracteres permitidos para el campo DNI',
+            'user_name.min'=>'Mínimo 8 caracteres permitidos para el campo DNI',
+            'user_name.unique'=>'El dni ingresado ya se ha registrado en el sistema',
             'alum_apellidoPaterno.required'=>'Ingrese apellido paterno',
+            'alum_apellidoPaterno.alpha'=>'El apellido paterno solo debe contener letras',
             'alum_apellidoPaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Paterno',
             'alum_apellidoMaterno.required'=>'Ingrese apellido materno',
+            'alum_apellidoMaterno.alpha'=>'El apellido materno solo debe contener letras',
             'alum_apellidoMaterno.max'=>'Maximo 25 caracteres permitidos para el campo Apellido Materno',
             'alum_primerNombre.required'=>'Ingrese primer nombre',
+            'alum_primerNombre.alpha'=>'El primer nombre solo debe contener letras',
             'alum_primerNombre.max'=>'Maximo 25 caracteres permitidos para el campo Primer Nombre',
             'alum_otrosNombres.max'=>'Maximo 25 caracteres permitidos para el campo Otros Nombres',
+            'alum_otrosNombres.alpha'=>'Los otros nombres solo deben contener letras',
             'alum_sexo.required'=>'Seleccione género',
             'alum_fechaNacimiento.required'=>'Seleccione fecha',
             'alum_direccion.required'=>'Ingrese dirección',
             'alum_direccion.max'=>'Maximo 50 caracteres permitidos para el campo Dirección',
-            'alum_telefono.required'=>'Ingrese telefono',
             'alum_telefono.max'=>'Maximo 8 caracteres permitidos para el campo Telefono',
             'alum_telefono.min'=>'Mínimo 8 caracteres permitidos para el campo Telefono',
+            'alum_telefono.integer'=>'El telefono ingresado debe contener solo números enteros',
             'alum_celular.required'=>'Ingrese celular',
             'alum_celular.max'=>'Maximo 9 caracteres permitidos para el campo Celular',
             'alum_celular.min'=>'Mínimo 9 caracteres permitidos para el campo Celular',
+            'alum_celular.integer'=>'El celular ingresado debe contener solo números enteros',
             'pais_id.required'=>'Seleccione país',
             'depa_id.required'=>'Seleccione departamento',
             'prov_id.required'=>'Seleccione provincia',
@@ -106,7 +112,7 @@ class AlumnoController extends Controller
 
         DB::table('alumnos')->insert([
             'alum_id' => $last_alum_id,
-            'alum_dni' => $request->alum_dni,
+            'alum_dni' => $request->user_name,
             'alum_apellidoPaterno' => $request->alum_apellidoPaterno,
             'alum_apellidoMaterno' => $request->alum_apellidoMaterno,
             'alum_primerNombre' => $request->alum_primerNombre,
@@ -135,8 +141,8 @@ class AlumnoController extends Controller
 
         DB::table('users')->insert([
             'user_id' => $last_user_id,
-            'user_name' => $request->alum_dni,
-            'user_password' => Hash::make($request->input('alum_dni')),
+            'user_name' => $request->user_name,
+            'user_password' => Hash::make($request->input('user_name')),
             'user_state' => '1',
             'role_id' => '3',
         ]);

@@ -11,7 +11,6 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
-
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item">
@@ -29,6 +28,57 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('user_name')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_apellidoPaterno')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_apellidoMaterno')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_primerNombre')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_otrosNombres')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_sexo')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_fechaIngreso')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_direccion')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_telefono')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('secre_celular')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('pais_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('depa_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('prov_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('dist_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -60,7 +110,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">DNI</label>
-                                        <input type="text" class="form-control" id="secre_dni" name="secre_dni"
+                                        <input type="number" class="form-control" id="secre_dni" name="user_name"
                                             placeholder="dni">
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -179,7 +229,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label" for="update_secre_dni">DNI</label>
-                                            <input type="text" class="form-control" id="update_secre_dni"
+                                            <input type="number" class="form-control" id="update_secre_dni"
                                                 name="secre_dni" placeholder="dni" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
@@ -643,6 +693,44 @@
                         $('#tabla-secretaria').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar una secretaria</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btn_registrar').text('Registrar');
                     $('#btn_registrar').attr("disabled", false);
@@ -802,6 +890,32 @@
                         $('#tabla-secretaria').DataTable().ajax.reload();
                     }
                 },
+                error: function(data) {
+                    $('#secretaria_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar una secretaria</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
+                },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
                     $('#btnActualizar').attr("disabled", false);
@@ -842,6 +956,32 @@
                             timeOut: 3000
                         });
                     $('#tabla-secretaria').DataTable().ajax.reload();
+                },
+                error: function(data) {
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar una secretaria</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

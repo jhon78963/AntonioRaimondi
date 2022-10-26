@@ -11,7 +11,6 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
-
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item">
@@ -29,6 +28,57 @@
                             </button>
                         </li>
                     </ul>
+                    <div class="row" id="alertError" style="display: none;">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p>Whoops! Ocurrieron algunos errores</p>
+                                <ul id="listaErrores">
+                                    @error('user_name')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_apellidoPaterno')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_apellidoMaterno')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_primerNombre')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_otrosNombres')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_sexo')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_fechaNacimiento')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_direccion')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_telefono')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('alum_celular')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('pais_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('depa_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('prov_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('dist_id')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
 
@@ -47,57 +97,6 @@
                         <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
                             <form id="registro-alumno">
                                 @csrf
-                                <div class="row" id="alertError" style="display: none;">
-                                    <div class="col-12">
-                                        <div class="alert alert-danger" role="alert">
-                                            <p>Whoops! Ocurrieron algunos errores</p>
-                                            <ul id="listaErrores">
-                                                @error('alum_dni')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_apellidoPaterno')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_apellidoMaterno')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_primerNombre')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_otrosNombres')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_sexo')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_fechaNacimiento')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_direccion')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_telefono')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('alum_celular')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('pais_id')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('depa_id')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('prov_id')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                                @error('dist_id')
-                                                    <li>{{ $message }}</li>
-                                                @enderror
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
 
@@ -111,7 +110,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">DNI</label>
-                                        <input type="text" class="form-control" id="alum_dni" name="alum_dni"
+                                        <input type="number" class="form-control" id="alum_dni" name="user_name"
                                             placeholder="dni">
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -152,12 +151,12 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Telefono</label>
-                                        <input type="text" class="form-control" id="alum_telefono"
+                                        <input type="number" class="form-control" id="alum_telefono"
                                             name="alum_telefono" placeholder="telefono">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="update_role_name">Celular</label>
-                                        <input type="text" class="form-control" id="alum_celular" name="alum_celular"
+                                        <input type="number" class="form-control" id="alum_celular" name="alum_celular"
                                             placeholder="celular">
                                     </div>
                                 </div>
@@ -230,7 +229,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label" for="update_alum_dni">DNI</label>
-                                            <input type="text" class="form-control" id="update_alum_dni"
+                                            <input type="number" class="form-control" id="update_alum_dni"
                                                 name="alum_dni" placeholder="dni" readonly>
                                         </div>
                                         <div class="mb-3 col-md-6">
@@ -273,12 +272,12 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label" for="update_alum_telefono">Telefono</label>
-                                            <input type="text" class="form-control" id="update_alum_telefono"
+                                            <input type="number" class="form-control" id="update_alum_telefono"
                                                 name="alum_telefono" placeholder="telefono">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label" for="update_alum_celular">Celular</label>
-                                            <input type="text" class="form-control" id="update_alum_celular"
+                                            <input type="number" class="form-control" id="update_alum_celular"
                                                 name="alum_celular" placeholder="celular">
                                         </div>
                                     </div>
@@ -690,18 +689,42 @@
                     }
                 },
                 error: function(data) {
-                    let errores = data.responseJSON.errors;
-                    let msjError = '';
-                    Object.values(errores).forEach(function(valor) {
-                        msjError += '<li>' + valor[0] + '</li>';
-                    });
-                    $("#listaErrores").html(msjError);
-                    $("#alertError").show();
-                    $('#btn_registrar').text('Registrar');
-                    $('#btn_registrar').attr("disabled", false);
-                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
-                        $("#alertError").slideUp(500);
-                    });
+                    if (data.status == 422) {
+                        let errores = data.responseJSON.errors;
+                        let msjError = '';
+                        Object.values(errores).forEach(function(valor) {
+                            msjError += '<li>' + valor[0] + '</li>';
+                        });
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para registrar un alumno</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btn_registrar').text('Registrar');
@@ -863,7 +886,30 @@
                     }
                 },
                 error: function(data) {
-                    alert("error");
+                    $('#alumno_edit_modal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para actualizar un alumno</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btnActualizar').text('Registrar');
+                        $('#btnActualizar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnActualizar').text('Actualizar');
@@ -907,14 +953,30 @@
                     $('#tabla-alumno').DataTable().ajax.reload();
                 },
                 error: function(data) {
-                    let msjError = '<li>No tiene permisos para eliminar alumnos</li>';
-                    $("#listaErrores").html(msjError);
-                    $("#alertError").show();
-                    $('#btn_registrar').text('Registrar');
-                    $('#btn_registrar').attr("disabled", false);
-                    $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
-                        $("#alertError").slideUp(500);
-                    });
+                    $('#confirmModal').modal('hide');
+                    if (data.status == 403) {
+                        let msjError = '<li>No tiene permisos para eliminar un alumno</li>';
+                        msjError +=
+                            '<li>Por favor contacte con un administrador para solicitar los permisos necesarios</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    } else {
+                        let msjError = '<li>Hay un problema con la página que esta buscando</li>';
+                        msjError +=
+                            '<li>Por favor reinicie la página o contacte con un administrador</li>';
+                        $("#listaErrores").html(msjError);
+                        $("#alertError").show();
+                        $('#btn_registrar').text('Registrar');
+                        $('#btn_registrar').attr("disabled", false);
+                        $("#alertError").fadeTo(5000, 500).slideUp(500, function() {
+                            $("#alertError").slideUp(500);
+                        });
+                    }
                 },
                 complete: function() {
                     $('#btnEliminar').text('Eliminar');

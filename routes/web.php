@@ -25,6 +25,7 @@ Route::get('login/cerrarSesion', [App\Http\Controllers\LoginController::class, '
 Route::group(['middleware' => 'auth'], function () {
     // Home
     Route::resource('bienvenido', App\Http\Controllers\HomeController::class);
+    Route::get('regresar',[App\Http\Controllers\HomeController::class, 'regresar'])->name('home.back');
 
     // Roles
     Route::post('role/actualizar/', [App\Http\Controllers\RoleController::class, 'actualizar'])->name('roles.actualizar');
@@ -72,6 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('aula/actualizar', [App\Http\Controllers\AulaController::class, 'actualizar'])->name('aulas.actualizar');
     Route::get('aula/eliminar/{id}', [App\Http\Controllers\AulaController::class, 'eliminar'])->name('aulas.eliminar');
     Route::resource('aulas', App\Http\Controllers\AulaController::class);
+
+    // Errors
+    Route::get('errors/401',[App\Http\Controllers\RoleController::class, 'error401']);
 });
 
 
