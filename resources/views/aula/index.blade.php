@@ -122,7 +122,7 @@
                                             class="form-control" placeholder="grado">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-info" id="btn_registrar">Registrar</button>
+                                <button type="submit" class="btn btn-info" id="btn_registrar_grado">Registrar</button>
                             </form>
                         </div>
                         <div class="tab-pane fade" id="navs-pills-top-seccion" role="tabpanel">
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-info" id="btn_registrar">Registrar</button>
+                                <button type="submit" class="btn btn-info" id="btn_registrar_seccion">Registrar</button>
                             </form>
                         </div>
                     </div>
