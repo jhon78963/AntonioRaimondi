@@ -7,13 +7,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" type="image/png" href="{{ asset('loginn/images/icono.png') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('loginn/images/icono.png') }}">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="{{ asset('loginn/css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('loginn/css/style.css') }}">
 
 </head>
 
@@ -28,7 +28,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
-                        <img src="{{ asset('loginn/images/logo.jpg') }}" alt="" class="img img-fluid">
+                        <img src="{{ secure_asset('loginn/images/logo.jpg') }}" alt="" class="img img-fluid">
                         {{-- <div class="img" style="background-image: url(loginn/images/logo.jpg);">
 
                         </div> --}}
@@ -104,11 +104,11 @@
         </div>
     </section>
 
-    <script src="{{ asset('loginn/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('loginn/js/popper.js') }}"></script>
-    <script src="{{ asset('loginn/js/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('loginn/js/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('loginn/js/popper.js') }}"></script>
+    <script src="{{ secure_asset('loginn/js/bootstrap.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('loginn/js/main.js') }}"></script>
+    <script src="{{ secure_asset('loginn/js/main.js') }}"></script>
 
     <script>
         $(function() {

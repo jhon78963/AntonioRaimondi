@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-    data-assets-path="{{ asset('plantilla/assets/') }}" data-template="vertical-menu-template-free">
+    data-assets-path="{{ secure_asset('plantilla/assets/') }}" data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -23,17 +23,18 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('plantilla/assets/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('plantilla/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('plantilla/assets/vendor/css/core.css') }}"
+    <link rel="stylesheet" href="{{ secure_asset('plantilla/assets/vendor/css/core.css') }}"
         class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('plantilla/assets/vendor/css/theme-default.css') }}"
+    <link rel="stylesheet" href="{{ secure_asset('plantilla/assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('plantilla/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('plantilla/assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('plantilla/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet"
+        href="{{ secure_asset('plantilla/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
@@ -43,11 +44,11 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="{{ asset('plantilla/assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('plantilla/assets/js/config.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/js/config.js') }}"></script>
 </head>
 
 <body>
@@ -69,7 +70,8 @@
                         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                             <div class="app-brand demo">
                                 <a href="{{ route('bienvenido.index') }}" class="app-brand-link">
-                                    <img src="{{ asset('loginn/images/icono.png') }}" alt="" width="25%">
+                                    <img src="{{ secure_asset('loginn/images/icono.png') }}" alt=""
+                                        width="25%">
                                     <div class="row">
                                         <span class="app-brand-text demo menu-text fw-bolder ms-2">A. Raimondi</span>
                                     </div>
@@ -277,23 +279,23 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('plantilla/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('plantilla/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('plantilla/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('plantilla/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="{{ asset('plantilla/assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('plantilla/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('plantilla/assets/js/main.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('plantilla/assets/js/dashboards-analytics.js') }}"></script>
-    <script src="{{ asset('plantilla/assets/js/pages-account-settings-account.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ secure_asset('plantilla/assets/js/pages-account-settings-account.js') }}"></script>
 
     <!-- Toastr JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
