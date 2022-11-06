@@ -126,7 +126,7 @@
 
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
-                                                            name="all_role_edit" disabled>
+                                                            name="all_role_edit">
                                                     </div>
                                                 </th>
                                                 <th scope="col" width="20%">Permiso</th>
@@ -139,7 +139,7 @@
                                                             <input type="checkbox" name="role_edit[]"
                                                                 id="role_edit{{ $role->id }}"
                                                                 value="{{ $role->id }}"
-                                                                class='form-check-input role_edit' disabled>
+                                                                class='form-check-input role_edit'>
                                                         </div>
                                                     </td>
                                                     <td>{{ $role->name }}</td>

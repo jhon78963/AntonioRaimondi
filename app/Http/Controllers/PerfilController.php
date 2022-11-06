@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class PerfilController extends Controller
 {
+    public function __construct(){
+        $this->middleware("can:users.profile", ['only'=>['index', 'update']]);
+    }
+
     public function index()
     {
         $usuario = UserProfile::find(auth()->user()->user_id);

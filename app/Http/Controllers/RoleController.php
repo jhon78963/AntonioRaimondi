@@ -67,7 +67,8 @@ class RoleController extends Controller
 
         DB::table('roles')->insert([
             'id' => $last_role_id,
-            'name' =>$request->role_name
+            'name' =>$request->role_name,
+            'guard_name' => 'web'
         ]);
 
         $permisos = $request->permission;
@@ -98,16 +99,9 @@ class RoleController extends Controller
 
     public function actualizar(Request $request)
     {
-        $role = Role::find($request->role_id);
-        $role->update($request->all());
-        $role->permissions()->sync($request->permission);
-
         DB::table('roles')->where('id', $request->role_id)->update([
             'name' => $request->role_name
         ]);
-
-        $roles = DB::table('roles')->where('id', $request->role_id)->first();
-
 
         DB::table('role_has_permissions')->where('role_id', $request->role_id)->delete();
 
@@ -123,44 +117,13 @@ class RoleController extends Controller
             }
         }
 
-        $users = User::role($roles->name)->get();
-
-        if($users != null){
-            for($i=0;$i<count($users);$i++){
-                DB::table('model_has_permissions')->where('model_id', $users[$i]->user_id)->delete();
-            }
-        }
-
-        $permissions = DB::table('role_has_permissions as rp')
-            ->join('permissions as p', 'rp.permission_id', 'p.id')
-            ->where('rp.role_id', $request->role_id)
-            ->get('p.name');
-
-        if($users != null){
-            for($i=0;$i<count($users);$i++){
-                for($j=0;$j<count($permissions);$j++){
-                    $users[$i]->givePermissionTo($permissions[$j]->name);
-                }
-            }
-        }
-
         return back();
     }
 
     public function eliminar($id)
     {
-        $roles = DB::table('roles')->where('id', $id)->first();
-        $users = User::role($roles->name)->get();
-
-        if($users != null){
-            for($i=0;$i<count($users);$i++){
-                DB::table('model_has_permissions')->where('model_id', $users[$i]->user_id)->delete();
-            }
-        }
-
         DB::table('roles')->where('id', $id)->delete();
         DB::table('roles')->where('id', '>', $id)->decrement('id', 1);
-
         return back();
     }
 

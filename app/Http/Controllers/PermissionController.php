@@ -68,9 +68,9 @@ class PermissionController extends Controller
 
         DB::table('permissions')->insert([
             'id' => $last_perm_id,
-            'name' => $request->perm_name
+            'name' => $request->perm_name,
+            'guard_name' => 'web'
         ]);
-
 
         $roles = $request->role;
 
@@ -104,106 +104,20 @@ class PermissionController extends Controller
             'name' => $request->perm_name
         ]);
 
+        DB::table('role_has_permissions')->where('permission_id', $request->perm_id)->delete();
+
+        $roles = $request->role_edit;
+
+        if($roles != null){
+            for($i=0;$i<count($roles);$i++){
+                DB::table('role_has_permissions')->insert([
+                    'role_id' => $request->role_edit[$i],
+                    'permission_id' => $request->perm_id
+                ]);
+            }
+        }
+
         return back();
-
-        // DB::table('role_has_permissions')->where('permission_id', $request->perm_id)->delete();
-
-        // $roles = $request->role_edit;
-
-        // if($roles != null){
-        //     for($i=0;$i<count($roles);$i++){
-        //         DB::table('role_has_permissions')->insert([
-        //             'role_id' => $request->role_edit[$i],
-        //             'permission_id' => $request->perm_id
-        //         ]);
-        //     }
-        // }
-
-        // $perm_roles = DB::table('model_has_permissions as mp')
-        //     ->join('model_has_roles as mr', 'mp.model_id', 'mr.model_id')
-        //     ->where('mp.permission_id', $request->perm_id)
-        //     ->get();
-
-        // if ($roles == null){
-        //     DB::table('model_has_permissions')->where('permission_id', $request->perm_id)->delete();
-        // }else{
-        //     for($j=0;$j<count($roles);$j++){
-        //         for($i=0;$i<count($perm_roles);$i++){
-        //             if($roles[$j] != $perm_roles[$i]->role_id){
-        //                 DB::table('model_has_permissions as mp')
-        //                 ->join('model_has_roles as mr', 'mp.model_id', 'mr.model_id')
-        //                 ->where('mr.role_id', $perm_roles[$i]->role_id)
-        //                 ->where('mp.permission_id', $request->perm_id)
-        //                 ->delete();
-        //             }
-        //         }
-        //     }
-        // }
-
-        // $rol_ids = $request->rol_id;
-        // $permiso = DB::table('permissions')->where('id', $request->perm_id)->first();
-        // $users = User::permission($permiso->name)->get();
-        // return dd($perm_roles);
-        // return dd($roles);
-
-
-
-
-
-
-        // for($j=0;$j<count($roles);$j++){
-        //     for($i=0;$i<count($perm_roles);$i++){
-        //         if($roles[$j] != $perm_roles[$i]->role_id){
-        //             DB::table('model_has_permissions as mp')
-        //             ->join('model_has_roles as mr', 'mp.model_id', 'mr.model_id')
-        //             ->where('mr.role_id', $perm_roles[$i]->role_id)
-        //             ->where('mp.permission_id', $request->perm_id)
-        //             ->delete();
-        //         }
-        //     }
-        // }
-
-
-
-
-
-
-        // Removemos el permiso a todos los usuarios que tengan dicho permiso
-        //
-
-        // Obtenemos los usuarios que tenga el permiso que estamos editando
-        // $users = User::permission($permisos->name)->get();
-
-
-
-
-        // if($users != null){
-        //     for($i=0;$i<count($users);$i++){
-
-        //     }
-        // }
-
-        // for($i=0;$i<count($roles);$i++){
-
-        //     return dd($users_roles[0]);
-        // }
-        // $users_roles = User::role('admin');
-        // return dd($users_roles);
-
-
-        // Obtenemos los roles que hemos seleccionado
-        // $rols = DB::table('role_has_permissions as rp')
-        //     ->join('permissions as p', 'rp.permission_id', 'p.id')
-        //     ->where('rp.permission_id', $request->perm_id)
-        //     ->get('r.name');
-
-        // if($users != null){
-        //     for($i=0;$i<count($users);$i++){
-        //         $users[$i]->givePermissionTo($permisos->name);
-        //     }
-        // }
-
-        // return back();
     }
 
     public function eliminar($id)
