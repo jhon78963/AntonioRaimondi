@@ -54,7 +54,7 @@
         <div class="misc-wrapper">
             <h2 class="mb-2 mx-2">@yield('title_message')(</h2>
             <p class="mb-4 mx-2">@yield('body_message')</p>
-            <a href="{{ route('home.back') }}" class="btn btn-primary">Regresar al Inicio</a>
+            <a href="{{ route('bienvenido.index') }}" class="btn btn-primary">Regresar al Inicio</a>
             <div class="mt-3">
                 @yield('image_message')
             </div>
