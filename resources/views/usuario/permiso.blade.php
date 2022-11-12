@@ -84,6 +84,8 @@
                                                     <div class="form-check">
                                                         <input type="checkbox" name="role[]" value="{{ $rol->id }}"
                                                             class='form-check-input role'>
+                                                        <input type="hidden" name="role_name[]" value="{{ $rol->name }}"
+                                                            class='form-check-input role'>
                                                     </div>
                                                 </td>
                                                 <td>{{ $rol->name }}</td>
@@ -140,6 +142,8 @@
                                                                 id="role_edit{{ $role->id }}"
                                                                 value="{{ $role->id }}"
                                                                 class='form-check-input role_edit'>
+                                                            <input type="hidden" name="role_name_update[]"
+                                                                value="{{ $role->name }}" class='form-check-input role'>
                                                         </div>
                                                     </td>
                                                     <td>{{ $role->name }}</td>

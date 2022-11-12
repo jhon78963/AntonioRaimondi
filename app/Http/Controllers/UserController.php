@@ -87,7 +87,8 @@ class UserController extends Controller
             'user_id' => $last_user_id,
             'user_name' => $request->user_name,
             'user_password' => Hash::make($request->input('user_password')),
-            'user_state' => '1'
+            'user_state' => '1',
+            'role_id' => '1'
         ]);
 
         DB::table('user_profiles')->insert([

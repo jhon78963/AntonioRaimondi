@@ -145,7 +145,7 @@ class DocenteController extends Controller
             'user_name' => $request->user_name,
             'user_password' => Hash::make($request->input('user_name')),
             'user_state' => '1',
-            'role_id' => '3',
+            'role_id' => '2',
         ]);
 
         DB::table('user_profiles')->insert([

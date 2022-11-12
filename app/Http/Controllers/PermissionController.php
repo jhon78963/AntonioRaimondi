@@ -73,6 +73,7 @@ class PermissionController extends Controller
         ]);
 
         $roles = $request->role;
+        $roles_name = $request->role_name;
 
         if($roles != null){
             for($i=0;$i<count($roles);$i++){
@@ -80,8 +81,16 @@ class PermissionController extends Controller
                     'permission_id' => $last_perm_id,
                     'role_id' => $roles[$i]
                 ]);
+
+                $users = User::where('user_state','1')->get();
+                for($j=0;$j<count($users);$j++){
+                    if($users[$j]->role_id == $roles[$i]){
+                        $users[$j]->assignRole($roles_name[$i]);
+                    }
+                }
             }
         }
+
 
         return back();
 
@@ -107,6 +116,7 @@ class PermissionController extends Controller
         DB::table('role_has_permissions')->where('permission_id', $request->perm_id)->delete();
 
         $roles = $request->role_edit;
+        $roles_name = $request->role_name_update;
 
         if($roles != null){
             for($i=0;$i<count($roles);$i++){
@@ -114,6 +124,13 @@ class PermissionController extends Controller
                     'role_id' => $request->role_edit[$i],
                     'permission_id' => $request->perm_id
                 ]);
+
+                $users = User::where('user_state','1')->get();
+                for($j=0;$j<count($users);$j++){
+                    if($users[$j]->role_id == $roles[$i]){
+                        $users[$j]->assignRole($roles_name[$i]);
+                    }
+                }
             }
         }
 

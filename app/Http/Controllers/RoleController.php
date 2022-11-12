@@ -82,7 +82,6 @@ class RoleController extends Controller
             }
         }
 
-
         return back();
     }
 
@@ -114,6 +113,13 @@ class RoleController extends Controller
                     'role_id' => $request->role_id,
                     'permission_id' => $request->permission_edit[$i]
                 ]);
+            }
+        }
+
+        $users = User::where('user_state','1')->get();
+        for($j=0;$j<count($users);$j++){
+            if($users[$j]->role_id == $request->role_id){
+                $users[$j]->assignRole($request->role_name);
             }
         }
 
