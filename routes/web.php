@@ -81,11 +81,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('periodo/eliminar/{id}', [App\Http\Controllers\PeriodoAcademicoController::class, 'eliminar'])->name('periodos.eliminar');
     Route::resource('periodos', App\Http\Controllers\PeriodoAcademicoController::class);
 });
-
-
-// Route::group(['middleware' => 'admin'], function () {});
-// Route::group(['middleware' => 'listar'], function () {});
-// Route::group(['middleware' => 'crear'], function () {});
-// Route::group(['middleware' => 'editar'], function () {});
-// Route::group(['middleware' => 'mostrar'], function () {});
-// Route::group(['middleware' => 'eliminar'], function () {});
