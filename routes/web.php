@@ -76,8 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('aula/seccion', [App\Http\Controllers\AulaController::class, 'seccion'])->name('aulas.seccion');
     Route::resource('aulas', App\Http\Controllers\AulaController::class);
 
-    // Errors
-    Route::get('errors/401',[App\Http\Controllers\RoleController::class, 'error401']);
+    // Periodos académicos
+    Route::post('periodo/actualizar', [App\Http\Controllers\PeriodoAcademicoController::class, 'actualizar'])->name('periodos.actualizar');
+    Route::get('periodo/eliminar/{id}', [App\Http\Controllers\PeriodoAcademicoController::class, 'eliminar'])->name('periodos.eliminar');
+    Route::resource('periodos', App\Http\Controllers\PeriodoAcademicoController::class);
 });
 
 
