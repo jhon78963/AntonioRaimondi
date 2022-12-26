@@ -33,7 +33,7 @@ class UserController extends Controller
             $users = DB::table('users as u')
                         ->join('user_profiles as up', 'u.user_id', 'up.user_id')
                         ->where('u.user_state', '1')
-                        ->select(DB::raw('concat("up"."upro_firstName", "up"."upro_lastName") AS upro_fullName'), 'u.user_id', 'u.user_name', 'up.upro_email')
+                        ->select(DB::raw("CONCAT(up.upro_firstName, ' ', up.upro_lastName) AS upro_fullName"), 'u.user_id', 'u.user_name', 'up.upro_email')
                         ->get();
             return DataTables::of($users)
                 ->addColumn('action', function($users){

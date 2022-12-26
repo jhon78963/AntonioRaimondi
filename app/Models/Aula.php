@@ -14,4 +14,14 @@ class Aula extends Model
     protected $primaryKey = 'aula_id';
 
     protected $guarded = [''];
+
+    public function grados()
+    {
+        return $this->hasOne('App\Models\Grado', 'grado_id', 'grado_id');
+    }
+
+    public function secciones()
+    {
+        return $this->hasOne('App\Models\Seccion', 'secc_id', 'secc_id');
+    }
 }

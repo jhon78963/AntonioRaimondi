@@ -87,103 +87,165 @@
                                         <div data-i18n="Analytics">Dashboard</div>
                                     </a>
                                 </li>
+                                @if (auth()->user()->role_id == 1)
+                                    <!-- Layouts -->
+                                    <li class="menu-item">
+                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                                            <div data-i18n="Layouts">Administración</div>
+                                        </a>
 
-                                <!-- Layouts -->
+                                        <ul class="menu-sub">
+                                            @can('permissions.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('permissions.index') }}" class="menu-link">
+                                                        <div data-i18n="Permisos">Permisos</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+
+                                            @can('roles.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('roles.index') }}" class="menu-link">
+                                                        <div data-i18n="Roles">Roles</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+
+                                            @can('users.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('users.index') }}" class="menu-link">
+                                                        <div data-i18n="Usuarios">Usuarios</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+
+                                        </ul>
+                                    </li>
+                                @endif
+                                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4)
+                                    <li class="menu-item">
+                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                                            <div data-i18n="Layouts">Entidades</div>
+                                        </a>
+
+                                        <ul class="menu-sub">
+                                            @can('alumnos.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('alumnos.index') }}" class="menu-link">
+                                                        <div data-i18n="Usuarios">Alumnos</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('docentes.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('docentes.index') }}" class="menu-link">
+                                                        <div data-i18n="Roles">Docentes</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('secretarias.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('secretarias.index') }}" class="menu-link">
+                                                        <div data-i18n="Roles">Secretarias</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('cursos.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('cursos.index') }}" class="menu-link">
+                                                        <div data-i18n="Permisos">Cursos</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('aulas.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('aulas.index') }}" class="menu-link">
+                                                        <div data-i18n="Permisos">Aulas</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
+
+                                    <li class="menu-item">
+                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                                            <div data-i18n="Layouts">Gestión Admistrativa</div>
+                                        </a>
+
+                                        <ul class="menu-sub">
+                                            @can('periodos.index')
+                                                <li class="menu-item">
+                                                    <a href="{{ route('periodos.index') }}" class="menu-link">
+                                                        <div data-i18n="Usuarios">Periodo Académico</div>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+
+                                        <ul class="menu-sub">
+                                            <li class="menu-item">
+                                                <a href="{{ route('matriculas.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Matriculas</div>
+                                                </a>
+                                            </li>
+
+                                            <li class="menu-item">
+                                                <a href="{{ route('administracion') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Generar Reportes</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+
                                 <li class="menu-item">
                                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-layout"></i>
-                                        <div data-i18n="Layouts">Administración</div>
+                                        <div data-i18n="Layouts">Gestión Académica</div>
                                     </a>
+                                    @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4 || auth()->user()->role_id == 2)
+                                        <ul class="menu-sub">
+                                            <li class="nav-header" style="padding-left: 40px;">Docente</li>
 
-                                    <ul class="menu-sub">
-                                        @can('permissions.index')
                                             <li class="menu-item">
-                                                <a href="{{ route('permissions.index') }}" class="menu-link">
-                                                    <div data-i18n="Permisos">Permisos</div>
+                                                <a href="{{ route('asistencias.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Asistencias</div>
                                                 </a>
                                             </li>
-                                        @endcan
 
-                                        @can('roles.index')
                                             <li class="menu-item">
-                                                <a href="{{ route('roles.index') }}" class="menu-link">
-                                                    <div data-i18n="Roles">Roles</div>
+                                                <a href="{{ route('notas.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Notas</div>
                                                 </a>
                                             </li>
-                                        @endcan
 
-                                        @can('users.index')
+                                        </ul>
+                                    @endif
+                                    @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 4 || auth()->user()->role_id == 3)
+                                        <ul class="menu-sub">
+                                            <li class="nav-header" style="padding-left: 40px;">Alumno</li>
+
                                             <li class="menu-item">
-                                                <a href="{{ route('users.index') }}" class="menu-link">
-                                                    <div data-i18n="Usuarios">Usuarios</div>
+                                                <a href="{{ route('asistencias.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Asistencias</div>
                                                 </a>
                                             </li>
-                                        @endcan
 
-                                    </ul>
+                                            <li class="menu-item">
+                                                <a href="{{ route('notas.index') }}" class="menu-link">
+                                                    <div data-i18n="Usuarios">Notas</div>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    @endif
+
+
                                 </li>
 
-                                <li class="menu-item">
-                                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                        <i class="menu-icon tf-icons bx bx-layout"></i>
-                                        <div data-i18n="Layouts">Gestión Admistrativa</div>
-                                    </a>
-
-                                    <ul class="menu-sub">
-                                        @can('periodos.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('periodos.index') }}" class="menu-link">
-                                                    <div data-i18n="Usuarios">Periodo Académico</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    </ul>
-                                </li>
-
-                                <li class="menu-item">
-                                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                        <i class="menu-icon tf-icons bx bx-layout"></i>
-                                        <div data-i18n="Layouts">Entidades</div>
-                                    </a>
-
-                                    <ul class="menu-sub">
-                                        @can('alumnos.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('alumnos.index') }}" class="menu-link">
-                                                    <div data-i18n="Usuarios">Alumnos</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('docentes.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('docentes.index') }}" class="menu-link">
-                                                    <div data-i18n="Roles">Docentes</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('secretarias.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('secretarias.index') }}" class="menu-link">
-                                                    <div data-i18n="Roles">Secretarias</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('cursos.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('cursos.index') }}" class="menu-link">
-                                                    <div data-i18n="Permisos">Cursos</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('aulas.index')
-                                            <li class="menu-item">
-                                                <a href="{{ route('aulas.index') }}" class="menu-link">
-                                                    <div data-i18n="Permisos">Aulas</div>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    </ul>
-                                </li>
                             </ul>
                         </aside>
                     </div>

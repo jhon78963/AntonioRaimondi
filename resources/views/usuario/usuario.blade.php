@@ -461,7 +461,7 @@
                         data: 'user_name'
                     },
                     {
-                        data: 'upro_fullname'
+                        data: 'upro_fullName'
                     },
                     {
                         data: 'upro_email'

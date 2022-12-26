@@ -80,6 +80,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('periodo/actualizar', [App\Http\Controllers\PeriodoAcademicoController::class, 'actualizar'])->name('periodos.actualizar');
     Route::get('periodo/eliminar/{id}', [App\Http\Controllers\PeriodoAcademicoController::class, 'eliminar'])->name('periodos.eliminar');
     Route::resource('periodos', App\Http\Controllers\PeriodoAcademicoController::class);
+
+    // Matriculas
+    Route::get('matricula-pdf/{matr_id}/{fecha}', [App\Http\Controllers\MatriculaController::class, 'listarPdf'])->name('matriculas.pdf');
+    Route::resource('matriculas', App\Http\Controllers\MatriculaController::class);
+    Route::get('/administracion', [App\Http\Controllers\GraficaController::class, 'administracion'])->name('administracion');
+
+    // Notas y Asistencias
+    Route::resource('asistencias', App\Http\Controllers\AsistenciaController::class);
+    Route::resource('notas', App\Http\Controllers\NotaController::class);
 });
 
 

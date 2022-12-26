@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'user_name' => 'zero',
-            'user_password' => Hash::make('013922889'),
+            'user_password' => Hash::make('d1e2y3v4y5'),
             'user_state' => '1',
             'role_id' => '1',
         ])->assignRole('administrador');

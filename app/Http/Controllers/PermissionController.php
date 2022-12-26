@@ -66,7 +66,7 @@ class PermissionController extends Controller
             $last_perm_id = 1;
         }
 
-        DB::table('permissions')->insert([
+        Permission::create([
             'id' => $last_perm_id,
             'name' => $request->perm_name,
             'guard_name' => 'web'
